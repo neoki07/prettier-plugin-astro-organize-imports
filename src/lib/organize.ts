@@ -25,5 +25,7 @@ export function organize(code: string, { filepath = 'file.ts' }: ParserOptions) 
 		{}
 	)[0];
 
-	return fileChanges ? applyTextChanges(code, fileChanges.textChanges) : code;
+	const formatted = fileChanges ? applyTextChanges(code, fileChanges.textChanges) : code;
+	// TODO: follow prettier's endOfLine option
+	return formatted.replace(/(\r\n|\r)/gm, '\n');
 }
