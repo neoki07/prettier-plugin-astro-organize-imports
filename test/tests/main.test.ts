@@ -9,6 +9,8 @@ test('Can format a basic import file', files, 'basic');
 
 test('Can format an unused import file', files, 'unused');
 
+test('Can format a HTML only file', files, 'html-only');
+
 test('Skip format `// organize-imports-ignore` file', files, 'organize-imports-ignore');
 
 test(

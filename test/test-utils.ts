@@ -8,8 +8,8 @@ import { expect, it } from 'vitest';
 export function format(contents: string): string {
 	try {
 		return prettier.format(contents, {
-			parser: 'astro',
-			plugins: [fileURLToPath(new URL('../', import.meta.url).toString())],
+			parser: 'astro-with-organize-imports',
+			plugins: ['prettier-plugin-astro', fileURLToPath(new URL('../', import.meta.url).toString())],
 		});
 	} catch (e) {
 		if (e instanceof Error) {

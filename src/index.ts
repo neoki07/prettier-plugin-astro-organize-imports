@@ -1,14 +1,13 @@
-import type { Parser, ParserOptions, Printer, SupportLanguage } from 'prettier';
-import { print } from './lib/print';
+import type { Parser, SupportLanguage } from 'prettier';
 import { organize } from './lib/organize';
+import { parsers as astroParsers } from 'prettier-plugin-astro';
 
 /**
  * Organize the code's imports using the `organizeImports` feature of the TypeScript language service API.
  *
  * @param {string} code
- * @param {import('prettier').ParserOptions} options
  */
-function organizeImports(code: string, opts: ParserOptions) {
+function organizeImports(code: string) {
 	if (
 		code.includes('// organize-imports-ignore') ||
 		code.includes('// tslint:disable:ordered-imports')
@@ -17,7 +16,7 @@ function organizeImports(code: string, opts: ParserOptions) {
 	}
 
 	try {
-		return organize(code, opts);
+		return organize(code);
 	} catch (error) {
 		if (process.env.DEBUG) {
 			console.error(error);
@@ -30,8 +29,8 @@ function organizeImports(code: string, opts: ParserOptions) {
 // https://prettier.io/docs/en/plugins.html#languages
 export const languages: Partial<SupportLanguage>[] = [
 	{
-		name: 'astro',
-		parsers: ['astro'],
+		name: 'AstroWithOrganizeImports',
+		parsers: ['astro-with-organize-imports'],
 		extensions: ['.astro'],
 		vscodeLanguageIds: ['astro'],
 	},
@@ -39,17 +38,11 @@ export const languages: Partial<SupportLanguage>[] = [
 
 // https://prettier.io/docs/en/plugins.html#parsers
 export const parsers: Record<string, Parser> = {
-	astro: {
-		parse: (source, _, opts) => organizeImports(source, opts),
-		astFormat: 'astro',
-		locStart: (node) => node.position.start.offset,
-		locEnd: (node) => node.position.end.offset,
-	},
-};
-
-// https://prettier.io/docs/en/plugins.html#printers
-export const printers: Record<string, Printer> = {
-	astro: {
-		print,
+	'astro-with-organize-imports': {
+		...astroParsers.astro,
+		preprocess: (code, options) =>
+			organizeImports(
+				astroParsers.astro.preprocess ? astroParsers.astro.preprocess(code, options) : code
+			),
 	},
 };
