@@ -65,10 +65,26 @@ export function test(name: string, files: any, path: string) {
 		const opts = getOptions(files, path);
 
 		const formatted = format(input, opts);
+		const formattedBuffer = Buffer.from(formatted);
+		const outputBuffer = Buffer.from(output);
+
+		if (Buffer.compare(formattedBuffer, outputBuffer) !== 0) {
+			console.log('formatted:', formattedBuffer);
+			console.log('output:', outputBuffer);
+			throw new Error('Buffers are not equal');
+		}
+
 		expect(formatted, 'Incorrect formatting').toBe(output);
 
 		// test that our formatting is idempotent
 		const formattedTwice = format(formatted, opts);
+		const formattedTwiceBuffer = Buffer.from(formattedTwice);
+
+		if (Buffer.compare(formattedTwiceBuffer, outputBuffer) !== 0) {
+			console.log('formatted(twice):', formattedTwiceBuffer);
+			console.log('output:', outputBuffer);
+			throw new Error('Buffers are not equal');
+		}
 		expect(formatted === formattedTwice, 'Formatting is not idempotent').toBe(true);
 	});
 }
