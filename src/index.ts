@@ -53,9 +53,3 @@ export const printers: Record<string, Printer> = {
 		print,
 	},
 };
-
-const defaultOptions: Partial<ParserOptions> = {
-	endOfLine: 'auto',
-};
-
-export { defaultOptions };
