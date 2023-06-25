@@ -1,7 +1,7 @@
 {
-  "name": "prettier-plugin-astro-organize-imports",
+  "name": "prettier-plugin-astro-with-organize-imports",
   "version": "0.0.1",
-  "description": "A Prettier plugin for formatting imports in Astro files using the TypeScript language service API",
+  "description": "A Prettier plugin for formatting imports in Astro files, in addition to the formatting provided by prettier-plugin-astro",
   "keywords": [
     "plugin",
     "formatter",
@@ -11,11 +11,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ot07/prettier-plugin-astro-organize-imports.git"
+    "url": "https://github.com/ot07/prettier-plugin-astro-with-organize-imports.git"
   },
-  "homepage": "https://github.com/ot07/prettier-plugin-astro-organize-imports#readme",
+  "homepage": "https://github.com/ot07/prettier-plugin-astro-with-organize-imports#readme",
   "bugs": {
-    "url": "https://github.com/ot07/prettier-plugin-astro-organize-imports/issues"
+    "url": "https://github.com/ot07/prettier-plugin-astro-with-organize-imports/issues"
   },
   "license": "MIT",
   "author": "ot07",
