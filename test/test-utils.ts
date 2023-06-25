@@ -23,29 +23,11 @@ export function format(contents: string, options: prettier.Options = {}): string
 	return '';
 }
 
-function markdownFormat(contents: string, options: prettier.Options = {}): string {
-	try {
-		return prettier.format(contents, {
-			parser: 'markdown',
-			plugins: [fileURLToPath(new URL('../', import.meta.url).toString())],
-			...options,
-		});
-	} catch (e) {
-		if (e instanceof Error) {
-			throw e;
-		}
-		if (typeof e === 'string') {
-			throw new Error(e);
-		}
-	}
-	return '';
-}
-
 /**
  * Utility to get `[input, output]` files
  */
-function getFiles(file: any, path: string, isMarkdown = false) {
-	const ext = isMarkdown ? 'md' : 'astro';
+function getFiles(file: any, path: string) {
+	const ext = 'astro';
 	let input: string = file[`/test/fixtures/${path}/input.${ext}`];
 	let output: string = file[`/test/fixtures/${path}/output.${ext}`];
 	// workaround: normalize end of lines to pass windows ci
@@ -72,24 +54,21 @@ function getOptions(files: any, path: string) {
  * @param {string} name Test name.
  * @param {any} files Files from import.meta.glob.
  * @param {string} path Fixture path.
- * @param {boolean} isMarkdown For markdown files
  */
-export function test(name: string, files: any, path: string, isMarkdown = false) {
+export function test(name: string, files: any, path: string) {
 	it(`${path}\n${name}`, async () => {
-		const { input, output } = getFiles(files, path, isMarkdown);
+		const { input, output } = getFiles(files, path);
 
 		expect(input, 'Missing input file').to.not.be.undefined;
 		expect(output, 'Missing output file').to.not.be.undefined;
 
-		const formatFile = isMarkdown ? markdownFormat : format;
-
 		const opts = getOptions(files, path);
 
-		const formatted = formatFile(input, opts);
+		const formatted = format(input, opts);
 		expect(formatted, 'Incorrect formatting').toBe(output);
 
 		// test that our formatting is idempotent
-		const formattedTwice = formatFile(formatted, opts);
+		const formattedTwice = format(formatted, opts);
 		expect(formatted === formattedTwice, 'Formatting is not idempotent').toBe(true);
 	});
 }
