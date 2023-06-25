@@ -4,7 +4,13 @@
   "description": "A Prettier plugin for formatting imports in Astro files using the TypeScript language service API",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "vitest run",
+    "test:watch": "vitest -w",
+    "lint": "eslint .",
+    "lint:fix": "pnpm lint --fix",
+    "format": "prettier -w . --cache"
   },
   "repository": {
     "type": "git",
@@ -22,5 +28,21 @@
   "bugs": {
     "url": "https://github.com/ot07/prettier-plugin-astro-organize-imports/issues"
   },
-  "homepage": "https://github.com/ot07/prettier-plugin-astro-organize-imports#readme"
+  "homepage": "https://github.com/ot07/prettier-plugin-astro-organize-imports#readme",
+  "dependencies": {
+    "prettier": "^2.8.8"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.2",
+    "@rollup/plugin-typescript": "^11.1.1",
+    "@types/node": "^20.3.1",
+    "@types/prettier": "^2.7.3",
+    "@typescript-eslint/eslint-plugin": "^5.60.0",
+    "@typescript-eslint/parser": "^5.60.0",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "rollup": "^3.25.2",
+    "typescript": "^5.1.3",
+    "vitest": "^0.32.2"
+  }
 }
