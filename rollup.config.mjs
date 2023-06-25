@@ -5,7 +5,7 @@ import { defineConfig } from 'rollup';
 export default defineConfig({
 	input: 'src/index.ts',
 	plugins: [commonjs(), typescript()],
-	external: ['prettier'],
+	external: ['prettier', 'prettier-plugin-astro'],
 	output: {
 		dir: 'dist',
 		format: 'cjs',
