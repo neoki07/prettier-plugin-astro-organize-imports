@@ -1,0 +1,53 @@
+name: 'CI'
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node_version: ['16', '18']
+        include:
+          - os: windows-latest
+            node_version: '16'
+          - os: macos-latest
+            node_version: '16'
+      fail-fast: false
+    env:
+      LANG: en-us
+    name: 'Test: node-${{ matrix.node_version }}, ${{ matrix.os }}'
+    steps:
+      - name: Check out code using Git
+        uses: actions/checkout@v3
+
+      - name: Install Tools & Dependencies
+        uses: ./.github/actions/install
+        with:
+          node-version: ${{ matrix.node_version }}
+
+      - name: Build prettier-plugin-astro
+        run: pnpm build
+
+      - name: Test
+        run: pnpm test
+
+  lint:
+    runs-on: ubuntu-latest
+    name: 'Lint: node-16, ubuntu-latest'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Tools & Dependencies
+        uses: ./.github/actions/install
+
+      - name: Build prettier-plugin-astro
+        run: pnpm build
+
+      - name: Lint
+        run: pnpm lint
