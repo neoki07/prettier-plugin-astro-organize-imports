@@ -20,7 +20,6 @@ export function organize(code: string, { filepath = 'file.ts' }: ParserOptions) 
 		{
 			type: 'file',
 			fileName: filepath,
-			// skipDestructiveCodeActions: organizeImportsSkipDestructiveCodeActions,
 		},
 		{},
 		{}
