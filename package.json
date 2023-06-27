@@ -1,7 +1,7 @@
 {
-  "name": "prettier-plugin-astro-with-organize-imports",
-  "version": "0.0.1",
-  "description": "A Prettier plugin for formatting imports in Astro files, in addition to the formatting provided by prettier-plugin-astro",
+  "name": "prettier-plugin-astro-organize-imports",
+  "version": "0.0.1-alpha.1",
+  "description": "A Prettier plugin for formatting imports in Astro files",
   "keywords": [
     "plugin",
     "formatter",
@@ -11,50 +11,39 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ot07/prettier-plugin-astro-with-organize-imports.git"
+    "url": "https://github.com/ot07/prettier-plugin-astro-organize-imports.git"
   },
-  "homepage": "https://github.com/ot07/prettier-plugin-astro-with-organize-imports#readme",
+  "homepage": "https://github.com/ot07/prettier-plugin-astro-organize-imports#readme",
   "bugs": {
-    "url": "https://github.com/ot07/prettier-plugin-astro-with-organize-imports/issues"
+    "url": "https://github.com/ot07/prettier-plugin-astro-organize-imports/issues"
   },
   "license": "MIT",
   "author": "ot07",
-  "engines": {
-    "node": ">=16.0.0",
-    "pnpm": ">=8.6.0"
-  },
-  "packageManager": "pnpm@8.6.0",
   "main": "dist/index.js",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "test": "vitest run",
-    "test:watch": "vitest -w",
-    "lint": "eslint .",
-    "lint:fix": "pnpm lint --fix",
-    "format": "prettier -w . --cache"
+    "_pre": "rimraf dist",
+    "_esbuild": "node build.js",
+    "prebuild": "npm run _pre",
+    "build": "npm run _esbuild -- --minify",
+    "predev": "npm run _pre",
+    "dev": "npm run _esbuild",
+    "format": "prettier \"src/**/*.js\" --write"
   },
   "dependencies": {
-    "prettier": "^2.8.8",
-    "prettier-plugin-astro": "^0.10.0"
+    "prettier": "^2.8.8"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^25.0.2",
-    "@rollup/plugin-typescript": "^11.1.1",
-    "@types/node": "^20.3.1",
-    "@types/prettier": "^2.7.3",
-    "@typescript-eslint/eslint-plugin": "^5.60.0",
-    "@typescript-eslint/parser": "^5.60.0",
-    "eslint": "^8.43.0",
-    "eslint-config-prettier": "^8.8.0",
-    "rollup": "^3.25.2",
-    "typescript": "^5.1.3",
-    "vitest": "^0.32.2"
+    "esbuild": "^0.18.10",
+    "rimraf": "^5.0.1",
+    "typescript": "^5.1.3"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "engines": {
+    "node": ">=18.15.0"
   }
 }

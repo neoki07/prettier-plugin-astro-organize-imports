@@ -11,7 +11,7 @@ import { getCompilerOptions } from './get-compiler-options';
  *
  * @returns {ts.LanguageServiceHost}
  */
-export function getTypeScriptLanguageServiceHost(path: string, content: string) {
+export function getTypeScriptLanguageServiceHost(path, content) {
 	const tsconfig = findTsconfig(path);
 	const compilerOptions = getCompilerOptions(tsconfig);
 
@@ -27,7 +27,7 @@ export function getTypeScriptLanguageServiceHost(path: string, content: string) 
 		getNewLine: () => ts.sys.newLine,
 		getScriptFileNames: () => [path],
 		getScriptVersion: () => '0',
-		getScriptSnapshot: (filePath: string) => {
+		getScriptSnapshot: (filePath) => {
 			if (filePath === path) {
 				return ts.ScriptSnapshot.fromString(content);
 			}
