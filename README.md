@@ -1,1 +1,1 @@
-# prettier-plugin-astro-with-organize-imports
+# prettier-plugin-astro-organize-imports
