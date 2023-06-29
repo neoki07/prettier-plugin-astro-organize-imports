@@ -1,24 +1,40 @@
-import type { Parser, SupportOptions } from 'prettier';
+import type { Parser } from 'prettier';
 import { organizeImports } from './lib/organize-imports';
-import { parsers as astroParsers } from 'prettier-plugin-astro';
+import { getCompatibleParser, getAdditionalParsers } from './compat'
 
-export const options: SupportOptions = {
-	organizeImportsSkipDestructiveCodeActions: {
-		type: 'boolean',
-		default: false,
-		category: 'OrganizeImports',
-		description: 'Skip destructive code actions like removing unused imports.',
-		since: '0.0.1',
-	},
-};
+const base = getBasePlugins()
+
+function createParser(parserFormat: string) {
+  return {
+    ...base.parsers[parserFormat],
+    preprocess(code: string, options: any) {
+      const original = getCompatibleParser(base, parserFormat, options)
+
+			return organizeImports(
+				original.preprocess ? original.preprocess(code, options) : code,
+				options
+			)
+    },
+
+    parse(text: string, parsers: any, options = {}) {
+      const original = getCompatibleParser(base, parserFormat, options)
+      return original.parse(text, parsers, options)
+    },
+  }
+}
 
 export const parsers: Record<string, Parser> = {
-	astro: {
-		...astroParsers.astro,
-		preprocess: (code, opts: any) =>
-			organizeImports(
-				astroParsers.astro.preprocess ? astroParsers.astro.preprocess(code, opts) : code,
-				opts
-			),
-	},
-};
+	...(base.parsers.astro
+    ? {
+        astro: createParser('astro'),
+      }
+    : {}),
+}
+
+function getBasePlugins(): {parsers: Record<string, Parser<any>>} {
+  return {
+    parsers: {
+      ...getAdditionalParsers(),
+    },
+  }
+}
