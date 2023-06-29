@@ -19,31 +19,42 @@
   },
   "license": "MIT",
   "author": "ot07",
+  "engines": {
+    "node": ">=16.0.0",
+    "pnpm": ">=8.6.0"
+  },
+  "packageManager": "pnpm@8.6.0",
   "main": "dist/index.js",
   "files": [
     "dist"
   ],
   "scripts": {
-    "_pre": "rimraf dist",
-    "_esbuild": "node build.js",
-    "prebuild": "npm run _pre",
-    "build": "npm run _esbuild -- --minify",
-    "predev": "npm run _pre",
-    "dev": "npm run _esbuild",
-    "format": "prettier \"src/**/*.js\" --write"
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "vitest run",
+    "test:watch": "vitest -w",
+    "lint": "eslint .",
+    "lint:fix": "pnpm lint --fix",
+    "format": "prettier -w . --cache"
   },
   "dependencies": {
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "prettier-plugin-astro": "^0.10.0"
   },
   "devDependencies": {
-    "esbuild": "^0.18.10",
-    "rimraf": "^5.0.1",
-    "typescript": "^5.1.3"
+    "@rollup/plugin-commonjs": "^25.0.2",
+    "@rollup/plugin-typescript": "^11.1.1",
+    "@types/node": "^20.3.1",
+    "@types/prettier": "^2.7.3",
+    "@typescript-eslint/eslint-plugin": "^5.60.0",
+    "@typescript-eslint/parser": "^5.60.0",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "rollup": "^3.25.2",
+    "typescript": "^5.1.3",
+    "vitest": "^0.32.2"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "engines": {
-    "node": ">=18.15.0"
   }
 }
