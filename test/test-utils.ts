@@ -9,7 +9,7 @@ export function format(contents: string): string {
 	try {
 		return prettier.format(contents, {
 			parser: 'astro',
-			plugins: ['prettier-plugin-astro', fileURLToPath(new URL('../', import.meta.url).toString())],
+			plugins: [fileURLToPath(new URL('../', import.meta.url).toString())],
 		});
 	} catch (e) {
 		if (e instanceof Error) {
