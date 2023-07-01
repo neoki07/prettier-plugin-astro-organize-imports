@@ -1,40 +1,59 @@
-import type { Parser } from 'prettier';
+import { type Parser, type Printer, type SupportLanguage, type AstPath, type Doc } from 'prettier';
 import { organizeImports } from './lib/organize-imports';
-import { getCompatibleParser, getAdditionalParsers } from './compat'
+import { getCompatibleParser, getCompatiblePrinter } from './compat';
+import { loadConfig } from './utils';
 
-const base = getBasePlugins()
+const config = loadConfig();
+const compatibleParser = getCompatibleParser('astro', config);
+const compatiblePrinter = getCompatiblePrinter('astro', config);
 
-function createParser(parserFormat: string) {
-  return {
-    ...base.parsers[parserFormat],
-    preprocess(code: string, options: any) {
-      const original = getCompatibleParser(base, parserFormat, options)
-
-			return organizeImports(
-				original.preprocess ? original.preprocess(code, options) : code,
-				options
-			)
-    },
-
-    parse(text: string, parsers: any, options = {}) {
-      const original = getCompatibleParser(base, parserFormat, options)
-      return original.parse(text, parsers, options)
-    },
-  }
-}
+export const languages: Partial<SupportLanguage>[] = [
+	{
+		name: 'astro',
+		parsers: ['astro'],
+		extensions: ['.astro'],
+		vscodeLanguageIds: ['astro'],
+	},
+];
 
 export const parsers: Record<string, Parser> = {
-	...(base.parsers.astro
-    ? {
-        astro: createParser('astro'),
-      }
-    : {}),
-}
+	astro: compatibleParser
+		? {
+				...compatibleParser,
+				preprocess(text: string, options: any) {
+					return organizeImports(
+						compatibleParser.preprocess ? compatibleParser.preprocess(text, options) : text,
+						options
+					);
+				},
+		  }
+		: {
+				parse(text: string) {
+					return text;
+				},
+				astFormat: 'astro',
+				locStart: (node) => node.position.start.offset,
+				locEnd: (node) => node.position.end.offset,
+				preprocess(code: string, options: any) {
+					return organizeImports(code, options);
+				},
+		  },
+};
 
-function getBasePlugins(): {parsers: Record<string, Parser<any>>} {
-  return {
-    parsers: {
-      ...getAdditionalParsers(),
-    },
-  }
-}
+export const printers: Record<string, Printer> = {
+	astro: compatiblePrinter
+		? {
+				...compatiblePrinter,
+		  }
+		: {
+				print(path: AstPath): Doc {
+					const node = path.getValue();
+
+					if (typeof node === 'string') {
+						return node;
+					}
+
+					return node.value;
+				},
+		  },
+};

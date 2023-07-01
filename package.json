@@ -38,8 +38,7 @@
     "format": "prettier -w . --cache"
   },
   "dependencies": {
-    "prettier": "^2.8.8",
-    "prettier-plugin-astro": "^0.10.0"
+    "prettier": "^2.8.8"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.2",
