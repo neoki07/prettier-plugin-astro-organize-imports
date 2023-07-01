@@ -5,11 +5,6 @@ import { getCompilerOptions } from './get-compiler-options';
 
 /**
  * Create the most basic TS language service host for the given file to make import sorting work.
- *
- * @param {string} path path to file
- * @param {string} content file's content
- *
- * @returns {ts.LanguageServiceHost}
  */
 export function getTypeScriptLanguageServiceHost(path: string, content: string) {
 	const tsconfig = findTsconfig(path);

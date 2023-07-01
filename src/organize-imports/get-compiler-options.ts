@@ -3,8 +3,6 @@ import ts from 'typescript';
 
 /**
  * Get the compiler options from the path to a tsconfig.
- *
- * @param {string | undefined} tsconfig path to tsconfig
  */
 export function getCompilerOptions(tsconfig?: string) {
 	const compilerOptions = tsconfig

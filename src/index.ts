@@ -1,11 +1,11 @@
 import { type Parser, type Printer, type SupportLanguage, type AstPath, type Doc } from 'prettier';
-import { organizeImports } from './lib/organize-imports';
-import { getCompatibleParser, getCompatiblePrinter } from './compat';
+import { organizeImports } from './organize-imports';
+import { getCompatibleAstroParser, getCompatibleAstroPrinter } from './compat';
 import { loadConfig } from './utils';
 
 const config = loadConfig();
-const compatibleParser = getCompatibleParser('astro', config);
-const compatiblePrinter = getCompatiblePrinter('astro', config);
+const compatibleAstroParser = getCompatibleAstroParser(config);
+const compatibleAstroPrinter = getCompatibleAstroPrinter(config);
 
 export const languages: Partial<SupportLanguage>[] = [
 	{
@@ -17,13 +17,14 @@ export const languages: Partial<SupportLanguage>[] = [
 ];
 
 export const parsers: Record<string, Parser> = {
-	astro: compatibleParser
+	astro: compatibleAstroParser
 		? {
-				...compatibleParser,
+				...compatibleAstroParser,
 				preprocess(text: string, options: any) {
 					return organizeImports(
-						compatibleParser.preprocess ? compatibleParser.preprocess(text, options) : text,
-						options
+						compatibleAstroParser.preprocess
+							? compatibleAstroParser.preprocess(text, options)
+							: text
 					);
 				},
 		  }
@@ -34,17 +35,15 @@ export const parsers: Record<string, Parser> = {
 				astFormat: 'astro',
 				locStart: (node) => node.position.start.offset,
 				locEnd: (node) => node.position.end.offset,
-				preprocess(code: string, options: any) {
-					return organizeImports(code, options);
+				preprocess(code: string) {
+					return organizeImports(code);
 				},
 		  },
 };
 
 export const printers: Record<string, Printer> = {
-	astro: compatiblePrinter
-		? {
-				...compatiblePrinter,
-		  }
+	astro: compatibleAstroPrinter
+		? compatibleAstroPrinter
 		: {
 				print(path: AstPath): Doc {
 					const node = path.getValue();

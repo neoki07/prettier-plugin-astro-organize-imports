@@ -1,51 +1,46 @@
-import type { Options, Parser, Plugin, Printer } from 'prettier';
+import type { Parser, Plugin, Printer } from 'prettier';
 import { loadIfExists } from './utils';
+import type { OptionsWithNamedPlugins } from './types';
 
-export const compatiblePlugins = ['prettier-plugin-astro', 'prettier-plugin-tailwindcss'];
+export const compatibleAstroPlugins = ['prettier-plugin-astro', 'prettier-plugin-tailwindcss'];
 
-export function getCompatibleParser(
-	parserFormat: string,
-	options?: Options
-): Parser<any> | undefined {
+export function getCompatibleAstroParser(options?: OptionsWithNamedPlugins): Parser | undefined {
 	if (!options?.plugins) {
 		return undefined;
 	}
 
-	let parser: Parser<any> | undefined = undefined;
+	let parser: Parser | undefined = undefined;
 	// Now load parsers from plugins
-	for (const name of compatiblePlugins) {
+	for (const name of compatibleAstroPlugins) {
 		const plugin = findEnabledPlugin(options, name);
 
 		if (plugin) {
-			parser = plugin.parsers?.[parserFormat];
+			parser = plugin.parsers?.astro;
 		}
 	}
 
 	return parser;
 }
 
-export function getCompatiblePrinter(
-	parserFormat: string,
-	options?: Options
-): Printer<any> | undefined {
+export function getCompatibleAstroPrinter(options?: OptionsWithNamedPlugins): Printer | undefined {
 	if (!options?.plugins) {
 		return undefined;
 	}
 
-	let printer: Printer<any> | undefined = undefined;
+	let printer: Printer | undefined = undefined;
 	// Now load parsers from plugins
-	for (const name of compatiblePlugins) {
+	for (const name of compatibleAstroPlugins) {
 		const plugin = findEnabledPlugin(options, name);
 
 		if (plugin) {
-			printer = plugin.printers?.[parserFormat];
+			printer = plugin.printers?.astro;
 		}
 	}
 
 	return printer;
 }
 
-function findEnabledPlugin(options: Options, name: string): Plugin<any> | undefined {
+function findEnabledPlugin(options: OptionsWithNamedPlugins, name: string): Plugin | undefined {
 	if (options.plugins === undefined) {
 		throw new Error('options.plugins is undefined');
 	}
@@ -58,9 +53,9 @@ function findEnabledPlugin(options: Options, name: string): Plugin<any> | undefi
 		return undefined;
 	}
 
-	const plugin = options.plugins.find(
-		(plugin: any) => plugin.name === name || plugin.name === path
-	) as Plugin<any>;
+	const plugin = options.plugins.find((plugin) => {
+		return plugin.name === name || plugin.name === path;
+	});
 
 	// The plugin was found by name or path
 	if (plugin) {

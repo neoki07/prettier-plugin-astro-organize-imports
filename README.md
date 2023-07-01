@@ -10,14 +10,14 @@ npm install -D prettier typescript prettier-plugin-astro-organize-imports
 
 ### Recommended configuration
 
-```json5
+```json
 {
-  plugins: ['prettier-plugin-astro-organize-imports'],
-  overrides: [
+  "plugins": ["prettier-plugin-astro-organize-imports"],
+  "overrides": [
     {
-      files: '*.astro',
-      options: {
-        parser: 'astro'
+      "files": "*.astro",
+      "options": {
+        "parser": "astro"
       }
     }
   ]
@@ -33,7 +33,7 @@ This plugin uses Prettier APIs that can only be used by one plugin at a time, ma
 
 One limitation with this approach is that `prettier-plugin-astro-organize-imports` must be loaded last, meaning Prettier auto-loading needs to be disabled. You can do this by setting the `pluginSearchDirs` option to `false` and then listing each of your Prettier plugins in the `plugins` array:
 
-```json5
+```json
 // .prettierrc
 {
   // ..
