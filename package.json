@@ -37,9 +37,9 @@
     "lint:fix": "pnpm lint --fix",
     "format": "prettier -w . --cache"
   },
-  "peerDependencies": {
-    "prettier": ">=2.0",
-    "typescript": ">=2.9"
+  "dependencies": {
+    "prettier": "^2.8.8",
+    "typescript": "^5.1.6"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.2",
