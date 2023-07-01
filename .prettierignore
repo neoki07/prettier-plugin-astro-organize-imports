@@ -4,3 +4,4 @@ test/fixtures/**/*.astro
 pnpm-lock.yaml
 .github
 .changeset
+README.md
