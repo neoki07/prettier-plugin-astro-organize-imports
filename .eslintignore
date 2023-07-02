@@ -2,3 +2,5 @@ test/fixtures/**
 dist/**
 .github
 .changeset
+.idea
+.vscode
