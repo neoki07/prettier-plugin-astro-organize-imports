@@ -28,8 +28,8 @@ npm install -D prettier typescript prettier-plugin-astro-organize-imports
 
 This plugin uses Prettier APIs that can only be used by one plugin at a time, making it incompatible with other Prettier plugins implemented the same way. To solve this we've added explicit per-plugin workarounds that enable compatibility with the following Prettier plugins:
 
-- prettier-plugin-astro
-- prettier-plugin-tailwindcss
+- `prettier-plugin-astro`
+- `prettier-plugin-tailwindcss`
 
 One limitation with this approach is that `prettier-plugin-astro-organize-imports` must be loaded last, meaning Prettier auto-loading needs to be disabled. You can do this by setting the `pluginSearchDirs` option to `false` and then listing each of your Prettier plugins in the `plugins` array:
 
