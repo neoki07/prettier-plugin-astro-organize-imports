@@ -10,6 +10,5 @@ export default defineConfig({
 	output: {
 		dir: 'dist',
 		format: 'cjs',
-		sourcemap: true,
 	},
 });
