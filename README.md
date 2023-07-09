@@ -16,6 +16,7 @@ npm install -D prettier typescript prettier-plugin-astro-organize-imports
 ### Recommended configuration
 
 ```json5
+// .prettierrc
 {
   "plugins": ["prettier-plugin-astro-organize-imports"],
   "overrides": [
