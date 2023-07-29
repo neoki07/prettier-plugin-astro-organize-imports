@@ -34,7 +34,8 @@ export const parsers: Record<string, Parser> = {
 						compatibleAstroParser.preprocess
 							? compatibleAstroParser.preprocess(text, options)
 							: text,
-						options.astroOrganizeImportsMode
+						options.astroOrganizeImportsMode,
+						options.endOfLine
 					);
 				},
 		  }
@@ -46,7 +47,7 @@ export const parsers: Record<string, Parser> = {
 				locStart: (node) => node.position.start.offset,
 				locEnd: (node) => node.position.end.offset,
 				preprocess(code: string, options: any) {
-					return organizeImports(code, options.astroOrganizeImportsMode);
+					return organizeImports(code, options.astroOrganizeImportsMode, options.endOfLine);
 				},
 		  },
 };
