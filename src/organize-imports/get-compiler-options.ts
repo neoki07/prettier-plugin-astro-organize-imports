@@ -4,10 +4,8 @@ import { memoize } from './memoize'
 
 /**
  * Get the compiler options from the path to a tsconfig.
- *
- * @param {string | undefined} tsconfig path to tsconfig
  */
-export const getCompilerOptions = memoize((tsconfig) => {
+export const getCompilerOptions = memoize((tsconfig?: string) => {
   const compilerOptions = tsconfig
     ? ts.parseJsonConfigFileContent(
         ts.readConfigFile(tsconfig, ts.sys.readFile).config,

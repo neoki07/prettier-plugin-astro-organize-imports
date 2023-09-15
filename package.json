@@ -50,6 +50,7 @@
     "@prettier/plugin-pug": "^3.0",
     "@shopify/prettier-plugin-liquid": "^1.2.2",
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
+    "@types/node": "^20.6.1",
     "ast-types": "^0.14.2",
     "clear-module": "^4.1.2",
     "cpy-cli": "^3.1.1",

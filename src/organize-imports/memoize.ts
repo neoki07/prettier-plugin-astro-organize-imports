@@ -1,11 +1,7 @@
 /**
  * Simple memoization utility that only uses the first argument as cache key and has no memory limit.
- *
- * @template {(...args: any[]) => any} F
- * @param {F} f
- * @returns {F}
  */
-export function memoize(f) {
+export function memoize(f: (...args: any[]) => any) {
   const cache = new Map()
 
   // @ts-ignore

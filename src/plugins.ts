@@ -1,10 +1,5 @@
+import { createRequire as req } from 'module'
 import { resolveConfig } from 'prettier'
-
-/**
- * @typedef {object} PluginDetails
- * @property {Record<string, import('prettier').Parser<any>>} parsers
- * @property {Record<string, import('prettier').Printer<any>>} printers
- */
 
 const plugins = ['prettier-plugin-astro', 'prettier-plugin-tailwindcss']
 
@@ -12,12 +7,9 @@ async function loadConfig() {
   return await resolveConfig(process.cwd())
 }
 
-/**
- * @returns {Promise<import('prettier').Plugin<any>>}
- */
-async function loadIfExistsESM(name) {
+async function loadIfExistsESM(name: string) {
   try {
-    if (createRequire(import.meta.url).resolve(name)) {
+    if (req(import.meta.url).resolve(name)) {
       let mod = await import(name)
       return mod.default ?? mod
     }
@@ -29,7 +21,7 @@ async function loadIfExistsESM(name) {
   }
 }
 
-function isPluginEnabled(name, options) {
+function isPluginEnabled(name: string, options: any) {
   return options.plugins.includes(name)
 }
 

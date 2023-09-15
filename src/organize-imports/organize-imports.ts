@@ -6,7 +6,7 @@ const FILE_PATH = 'file.ts'
 /**
  * Organize the given code's imports.
  */
-function organize(code, mode) {
+function organize(code: string, mode: any) {
   const languageService = getLanguageService(FILE_PATH, code)
 
   const fileChanges = languageService.organizeImports(
@@ -25,7 +25,7 @@ function organize(code, mode) {
 /**
  * Organize the code's imports using the `organizeImports` feature of the TypeScript language service API.
  */
-export function organizeImports(code, mode) {
+export function organizeImports(code: string, mode: any) {
   if (
     code.includes('// organize-imports-ignore') ||
     code.includes('// tslint:disable:ordered-imports')
