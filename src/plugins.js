@@ -1,10 +1,16 @@
-import { createRequire as req } from 'module'
+import { resolveConfig } from 'prettier'
 
 /**
  * @typedef {object} PluginDetails
  * @property {Record<string, import('prettier').Parser<any>>} parsers
  * @property {Record<string, import('prettier').Printer<any>>} printers
  */
+
+const plugins = ['prettier-plugin-astro', 'prettier-plugin-tailwindcss']
+
+async function loadConfig() {
+  return await resolveConfig(process.cwd())
+}
 
 /**
  * @returns {Promise<import('prettier').Plugin<any>>}
@@ -23,108 +29,53 @@ async function loadIfExistsESM(name) {
   }
 }
 
-export async function loadPlugins() {
-  const thirdparty = await loadThirdPartyPlugins()
-  const compatible = await loadCompatiblePlugins()
+function isPluginEnabled(name, options) {
+  return options.plugins.includes(name)
+}
 
-  let parsers = {
-    ...thirdparty.parsers,
+export async function getAstroParser() {
+  const options = await loadConfig()
+
+  if (!options?.plugins) {
+    return undefined
   }
 
-  let printers = {
-    ...thirdparty.printers,
-  }
+  let parser = undefined
+  // Now load parsers from plugins
+  for (const name of plugins) {
+    if (!isPluginEnabled(name, options)) {
+      continue
+    }
 
-  function maybeResolve(name) {
-    try {
-      return req.resolve(name)
-    } catch (err) {
-      return null
+    const plugin = await loadIfExistsESM(name)
+    if (plugin) {
+      parser = plugin.parsers?.astro
     }
   }
 
-  function findEnabledPlugin(options, name, mod) {
-    let path = maybeResolve(name)
+  return parser
+}
 
-    for (let plugin of options.plugins) {
-      // options.plugins.*.name == name
-      if (plugin.name === name) {
-        return mod
-      }
+export async function getAstroPrinter() {
+  const options = await loadConfig()
 
-      // options.plugins.*.name == path
-      if (plugin.name === path) {
-        return mod
-      }
+  if (!options?.plugins) {
+    return undefined
+  }
 
-      // basically options.plugins.* == mod
-      // But that can't work because prettier normalizes plugins which destroys top-level object identity
-      if (plugin.parsers && mod.parsers && plugin.parsers == mod.parsers) {
-        return mod
-      }
+  let printer = undefined
+  // Now load parsers from plugins
+  for (const name of plugins) {
+    if (!isPluginEnabled(name, options)) {
+      continue
     }
 
-    return null
+    const plugin = await loadIfExistsESM(name)
+
+    if (plugin) {
+      printer = plugin.printers?.astro
+    }
   }
 
-  return {
-    parsers,
-    printers,
-
-    originalParser(format, options) {
-      if (!options.plugins) {
-        return parsers[format]
-      }
-
-      let parser = { ...parsers[format] }
-
-      // Now load parsers from "compatible" plugins if any
-      for (const { name, mod } of compatible) {
-        let plugin = findEnabledPlugin(options, name, mod)
-        if (plugin) {
-          Object.assign(parser, plugin.parsers[format])
-        }
-      }
-
-      return parser
-    },
-  }
-}
-
-/**
- * @returns {Promise<PluginDetails}>}
- */
-async function loadThirdPartyPlugins() {
-  // Commented out plugins do not currently work with Prettier v3.0
-  let [astro] = await Promise.all([loadIfExistsESM('prettier-plugin-astro')])
-
-  return {
-    parsers: {
-      ...astro.parsers,
-    },
-    printers: {
-      ...astro.printers,
-    },
-  }
-}
-
-async function loadCompatiblePlugins() {
-  // Commented out plugins do not currently work with Prettier v3.0
-  let plugins = ['prettier-plugin-organize-imports']
-
-  // Load all the available compatible plugins up front
-  // These are wrapped in try/catch internally so failure doesn't cause issues
-  // Technically we're executing these plugins though
-  // Even if not enabled
-  // There is, unfortunately, no way around this currently
-  return await Promise.all(
-    plugins.map(async (name) => {
-      let mod = await loadIfExistsESM(name)
-
-      return {
-        name,
-        mod,
-      }
-    }),
-  )
+  return printer
 }

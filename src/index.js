@@ -1,31 +1,38 @@
 import { organizeImports } from './organize-imports'
-// @ts-ignore
-import { loadPlugins } from './plugins.js'
+import { getAstroParser, getAstroPrinter } from './plugins.js'
 
-let base = await loadPlugins()
-
-/** @type {Partial<import('prettier').SupportLanguage>[]} */
-export const languages = [
-  {
-    name: 'astro',
-    parsers: ['astro'],
-    extensions: ['.astro'],
-    vscodeLanguageIds: ['astro'],
-  },
-]
+const parser = await getAstroParser()
+const printer = await getAstroPrinter()
 
 /**
  * @param {string} parserFormat
  */
-function createParser(parserFormat) {
-  return base.parsers[parserFormat]
+
+export { options } from './options.js'
+
+export const printers = {
+  astro: printer
+    ? printer
+    : {
+        print(path) {
+          const node = path.getValue()
+
+          if (typeof node === 'string') {
+            return node
+          }
+
+          return node.value
+        },
+      },
+}
+
+export const parsers = {
+  astro: parser
     ? {
-        ...base.parsers[parserFormat],
+        ...parser,
         preprocess(code, options) {
           return organizeImports(
-            base.parsers[parserFormat].preprocess
-              ? base.parsers[parserFormat].preprocess(code, options)
-              : code,
+            parser.preprocess ? parser.preprocess(code, options) : code,
             undefined,
           )
         },
@@ -44,33 +51,5 @@ function createParser(parserFormat) {
         preprocess(code) {
           return organizeImports(code, undefined)
         },
-      }
-}
-
-export { options } from './options.js'
-
-export const printers = {
-  astro: {
-    ...(base.printers.astro
-      ? base.printers.astro
-      : {
-          print(path) {
-            const node = path.getValue()
-
-            if (typeof node === 'string') {
-              return node
-            }
-
-            return node.value
-          },
-        }),
-  },
-}
-
-export const parsers = {
-  ...(base.parsers.astro
-    ? {
-        astro: createParser('astro'),
-      }
-    : {}),
+      },
 }
