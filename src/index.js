@@ -4,11 +4,7 @@ import { getAstroParser, getAstroPrinter } from './plugins.js'
 const parser = await getAstroParser()
 const printer = await getAstroPrinter()
 
-/**
- * @param {string} parserFormat
- */
-
-export { options } from './options.js'
+export const options = {}
 
 export const printers = {
   astro: printer
