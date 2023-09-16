@@ -35,23 +35,6 @@ function patchCjsInterop() {
   }
 }
 
-/**
- * @returns {import('esbuild').Plugin}
- */
-function copyTypes() {
-  return {
-    name: 'copy-types',
-    setup(build) {
-      build.onEnd(() =>
-        fs.promises.copyFile(
-          path.resolve(__dirname, './src/index.d.ts'),
-          path.resolve(__dirname, './dist/index.d.ts'),
-        ),
-      )
-    },
-  }
-}
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 let context = await esbuild.context({
@@ -63,7 +46,7 @@ let context = await esbuild.context({
   entryPoints: [path.resolve(__dirname, './src/index.js')],
   outfile: path.resolve(__dirname, './dist/index.mjs'),
   format: 'esm',
-  plugins: [patchCjsInterop(), copyTypes()],
+  plugins: [patchCjsInterop()],
 })
 
 await context.rebuild()
