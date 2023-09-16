@@ -3,7 +3,6 @@
 [![license](https://img.shields.io/npm/l/prettier-plugin-astro-organize-imports.svg)](https://github.com/resonance-box/prettier-plugin-astro-organize-imports/blob/main/LICENSE.md)
 [![npm](https://img.shields.io/npm/v/prettier-plugin-astro-organize-imports.svg)](https://www.npmjs.com/package/prettier-plugin-astro-organize-imports)
 [![npm downloads](https://img.shields.io/npm/dm/prettier-plugin-astro-organize-imports)](https://www.npmjs.com/package/prettier-plugin-astro-organize-imports)
-[![CI](https://github.com/ot07/prettier-plugin-astro-organize-imports/actions/workflows/ci.yml/badge.svg)](https://github.com/ot07/prettier-plugin-astro-organize-imports/actions/workflows/ci.yml)
 
 A plugin that makes Prettier organize your imports (i. e. sorts, combines and removes unused ones) in Astro files using the `organizeImports` feature of the TypeScript language service API.
 
@@ -61,7 +60,7 @@ This plugin uses Prettier APIs that can only be used by one plugin at a time, ma
 - `prettier-plugin-astro`
 - `prettier-plugin-tailwindcss`
 
-One limitation with this approach is that `prettier-plugin-astro-organize-imports` must be loaded last, meaning Prettier auto-loading needs to be disabled. You can do this by setting the `pluginSearchDirs` option to `false` and then listing each of your Prettier plugins in the `plugins` array:
+One limitation with this approach is that `prettier-plugin-astro-organize-imports` must be loaded last. You can do this by listing each of your Prettier plugins in the `plugins` array:
 
 ```json5
 // .prettierrc
@@ -72,7 +71,6 @@ One limitation with this approach is that `prettier-plugin-astro-organize-import
     "prettier-plugin-tailwindcss",
     "prettier-plugin-astro-organize-imports" // MUST come last
   ],
-  "pluginSearchDirs": false,
   "overrides": [
     {
       "files": "*.astro",
