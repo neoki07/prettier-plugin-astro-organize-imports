@@ -1,1 +1,1 @@
-export { organizeImports } from './organize-imports';
+export { organizeImports } from './organize-imports'

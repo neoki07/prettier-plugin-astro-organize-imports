@@ -1,95 +1,86 @@
-import {
-	type AstPath,
-	type ChoiceSupportOption,
-	type Doc,
-	type Parser,
-	type Printer,
-	type SupportLanguage,
-	type SupportOptions,
-} from 'prettier';
-import { organizeImports } from './organize-imports';
-import { getCompatibleAstroParser, getCompatibleAstroPrinter } from './compat';
-import { loadConfig } from './utils';
-import { OrganizeImportsMode } from 'typescript';
+import prettier from 'prettier'
+import ts from 'typescript'
+import { organizeImports } from './organize-imports'
+import { getAstroParser, getAstroPrinter } from './plugins'
 
-const config = loadConfig();
-const compatibleAstroParser = getCompatibleAstroParser(config);
-const compatibleAstroPrinter = getCompatibleAstroPrinter(config);
+const parser = await getAstroParser()
+const printer = await getAstroPrinter()
 
-export const languages: Partial<SupportLanguage>[] = [
-	{
-		name: 'astro',
-		parsers: ['astro'],
-		extensions: ['.astro'],
-		vscodeLanguageIds: ['astro'],
-	},
-];
+export interface PluginOptions {
+  astroOrganizeImportsMode: ts.OrganizeImportsMode
+}
 
-export const parsers: Record<string, Parser> = {
-	astro: compatibleAstroParser
-		? {
-				...compatibleAstroParser,
-				preprocess(text: string, options: any) {
-					return organizeImports(
-						compatibleAstroParser.preprocess
-							? compatibleAstroParser.preprocess(text, options)
-							: text,
-						options.astroOrganizeImportsMode
-					);
-				},
-		  }
-		: {
-				parse(text: string) {
-					return text;
-				},
-				astFormat: 'astro',
-				locStart: (node) => node.position.start.offset,
-				locEnd: (node) => node.position.end.offset,
-				preprocess(code: string, options: any) {
-					return organizeImports(code, options.astroOrganizeImportsMode);
-				},
-		  },
-};
+declare module 'prettier' {
+  interface RequiredOptions extends PluginOptions {}
+  interface ParserOptions extends PluginOptions {}
+}
 
-export const printers: Record<string, Printer> = {
-	astro: compatibleAstroPrinter
-		? compatibleAstroPrinter
-		: {
-				print(path: AstPath): Doc {
-					const node = path.getValue();
+export const parsers: Record<string, prettier.Parser> = {
+  astro: parser
+    ? {
+        ...parser,
+        preprocess(code, options) {
+          return organizeImports(
+            parser.preprocess ? parser.preprocess(code, options) : code,
+            options.astroOrganizeImportsMode,
+          )
+        },
+      }
+    : {
+        parse(code) {
+          return code
+        },
+        astFormat: 'astro',
+        locStart(node) {
+          return node.position.start.offset
+        },
+        locEnd(node) {
+          return node.position.end.offset
+        },
+        preprocess(code, options) {
+          return organizeImports(code, options.astroOrganizeImportsMode)
+        },
+      },
+}
 
-					if (typeof node === 'string') {
-						return node;
-					}
+export const printers: Record<string, prettier.Printer> = {
+  astro: printer
+    ? printer
+    : {
+        print(path) {
+          const { node } = path
 
-					return node.value;
-				},
-		  },
-};
+          if (typeof node === 'string') {
+            return node
+          }
 
-const modeOption: ChoiceSupportOption<OrganizeImportsMode> = {
-	type: 'choice',
-	default: OrganizeImportsMode.All,
-	category: 'OrganizeImports',
-	description: 'Organize imports mode',
-	choices: [
-		{
-			value: OrganizeImportsMode.All,
-			description:
-				'Removing unused imports, coalescing imports from the same module, and sorting imports',
-		},
-		{
-			value: OrganizeImportsMode.SortAndCombine,
-			description: 'Coalesce imports from the same module and sorting imports',
-		},
-		{
-			value: OrganizeImportsMode.RemoveUnused,
-			description: 'Removing unused imports',
-		},
-	],
-	since: '0.2.0',
-};
+          return node.value
+        },
+      },
+}
 
-export const options: SupportOptions = {
-	astroOrganizeImportsMode: modeOption,
-};
+const modeOption: prettier.ChoiceSupportOption<ts.OrganizeImportsMode> = {
+  type: 'choice',
+  default: ts.OrganizeImportsMode.All,
+  category: 'OrganizeImports',
+  description: 'Organize imports mode',
+  choices: [
+    {
+      value: ts.OrganizeImportsMode.All,
+      description:
+        'Removing unused imports, coalescing imports from the same module, and sorting imports',
+    },
+    {
+      value: ts.OrganizeImportsMode.SortAndCombine,
+      description: 'Coalesce imports from the same module and sorting imports',
+    },
+    {
+      value: ts.OrganizeImportsMode.RemoveUnused,
+      description: 'Removing unused imports',
+    },
+  ],
+}
+
+export const options: Record<keyof PluginOptions, prettier.SupportOption> = {
+  astroOrganizeImportsMode: modeOption,
+}
