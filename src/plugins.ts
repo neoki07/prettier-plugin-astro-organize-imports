@@ -40,8 +40,8 @@ export async function getAstroParser() {
     }
 
     const plugin = await loadIfExistsESM(name)
-    if (plugin) {
-      parser = plugin.parsers?.astro
+    if (plugin?.parsers?.astro) {
+      parser = plugin.parsers.astro
     }
   }
 
@@ -64,8 +64,8 @@ export async function getAstroPrinter() {
 
     const plugin = await loadIfExistsESM(name)
 
-    if (plugin) {
-      printer = plugin.printers?.astro
+    if (plugin?.printers?.astro) {
+      printer = plugin.printers.astro
     }
   }
 
