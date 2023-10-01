@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
-import {format} from './utils'
-import {expected, input} from "./fixtures";
+import { expected, input } from './fixtures'
+import { format } from './utils'
 
 const tests = [
   {
@@ -26,15 +26,15 @@ const tests = [
     name: 'with prettier-plugin-astro and prettier-plugin-tailwindcss',
     expected: expected.withAstroAndTailwindCSSPlugins,
     plugins: ['prettier-plugin-astro', 'prettier-plugin-tailwindcss'],
-  }
+  },
 ]
 
 describe('format', () => {
-  for (const { name, expected , mode, plugins} of tests) {
+  for (const { name, expected, mode, plugins } of tests) {
     test(name, async () => {
       const options = {
         plugins,
-        astroOrganizeImportsMode: mode
+        astroOrganizeImportsMode: mode,
       }
 
       expect(await format(input, options)).toEqual(expected)

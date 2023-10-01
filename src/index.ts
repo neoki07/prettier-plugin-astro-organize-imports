@@ -1,7 +1,16 @@
-import {OrganizeImportsMode} from 'typescript'
+import type {
+  AstPath,
+  ChoiceSupportOption,
+  Doc,
+  Options,
+  Parser,
+  ParserOptions,
+  Printer,
+  SupportOption,
+} from 'prettier'
+import { OrganizeImportsMode } from 'typescript'
 import { organizeImports } from './organize-imports'
-import {loadPlugin} from './plugins'
-import type {ChoiceSupportOption, Doc, Options, Parser, ParserOptions, Printer, SupportOption, AstPath} from "prettier";
+import { loadPlugin } from './plugins'
 
 export interface PluginOptions {
   astroOrganizeImportsMode: OrganizeImportsMode
@@ -32,8 +41,8 @@ export const parsers: Record<string, Parser> = {
     parse(text, options) {
       const original = plugin.originalParser(options)
       return original.parse?.(text, options) ?? text
-    }
-  }
+    },
+  },
 }
 
 export const printers: Record<string, Printer> = {
@@ -62,7 +71,7 @@ export const printers: Record<string, Printer> = {
       }
 
       return null
-    }
+    },
   },
 }
 

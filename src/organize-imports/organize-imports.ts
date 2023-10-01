@@ -1,6 +1,6 @@
 import { applyTextChanges } from './apply-text-changes'
 import { getLanguageService } from './get-language-service'
-import type {OrganizeImportsMode} from "typescript";
+import type { OrganizeImportsMode } from 'typescript'
 
 const FILE_PATH = 'file.ts'
 

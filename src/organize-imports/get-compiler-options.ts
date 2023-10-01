@@ -1,6 +1,11 @@
 import { dirname } from 'path'
+import {
+  getDefaultCompilerOptions,
+  parseJsonConfigFileContent,
+  readConfigFile,
+  sys,
+} from 'typescript'
 import { memoize } from './memoize'
-import {parseJsonConfigFileContent, sys, readConfigFile, getDefaultCompilerOptions} from "typescript";
 
 /**
  * Get the compiler options from the path to a tsconfig.

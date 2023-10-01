@@ -1,5 +1,5 @@
-import prettier, {type Options} from 'prettier'
 import path from 'path'
+import prettier, { type Options } from 'prettier'
 
 const pluginPath = path.resolve(__dirname, '../dist/index.mjs')
 

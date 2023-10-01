@@ -1,5 +1,5 @@
 import { dirname } from 'path'
-import {sys, getDefaultLibFileName, ScriptSnapshot} from 'typescript'
+import { ScriptSnapshot, getDefaultLibFileName, sys } from 'typescript'
 import { findTsconfig } from './find-tsconfig'
 import { getCompilerOptions } from './get-compiler-options'
 

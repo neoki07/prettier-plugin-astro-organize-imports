@@ -1,4 +1,4 @@
-import type {TextChange} from "typescript";
+import type { TextChange } from 'typescript'
 
 /**
  * Apply the given set of text changes to the input.

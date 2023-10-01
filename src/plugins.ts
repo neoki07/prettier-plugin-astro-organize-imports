@@ -1,5 +1,5 @@
 import { createRequire as req } from 'module'
-import type {Options, Parser, ParserOptions, Plugin, Printer} from "prettier";
+import type { Options, Parser, ParserOptions, Plugin, Printer } from 'prettier'
 
 const basePlugin = 'prettier-plugin-astro'
 
@@ -31,7 +31,11 @@ export async function loadPlugin() {
     }
   }
 
-  function findEnabledPlugin(options: ParserOptions | Options, name: string, mod: Plugin) {
+  function findEnabledPlugin(
+    options: ParserOptions | Options,
+    name: string,
+    mod: Plugin,
+  ) {
     if (!options.plugins) {
       throw new Error(`options.plugins is not defined`)
     }
@@ -40,7 +44,9 @@ export async function loadPlugin() {
 
     for (let plugin of options.plugins) {
       if (typeof plugin === 'string') {
-        throw new Error(`Plugin must be \`prettier.Plugin\`. but got \`string\`: ${plugin}`)
+        throw new Error(
+          `Plugin must be \`prettier.Plugin\`. but got \`string\`: ${plugin}`,
+        )
       }
 
       // options.plugins.*.name == name
@@ -108,10 +114,7 @@ async function loadBasePlugins() {
 }
 
 async function loadCompatiblePlugins() {
-  const plugins = [
-    basePlugin,
-    'prettier-plugin-tailwindcss',
-  ]
+  const plugins = [basePlugin, 'prettier-plugin-tailwindcss']
 
   return await Promise.all(
     plugins.map(async (name) => {

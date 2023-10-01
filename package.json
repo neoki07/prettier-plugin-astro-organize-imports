@@ -34,7 +34,8 @@
     "_esbuild": "node build.mjs",
     "build": "npm run _esbuild -- --minify",
     "dev": "npm run _esbuild -- --watch",
-    "test": "vitest"
+    "format": "prettier \"src/**/*.ts\" \"tests/**/*.ts\" --write",
+    "test": "vitest --run"
   },
   "dependencies": {
     "typescript": "^5.2.2"
@@ -44,6 +45,7 @@
     "esbuild": "^0.19.3",
     "prettier": "^3.0.3",
     "prettier-plugin-astro": "^0.12.0",
+    "prettier-plugin-organize-imports": "^3.2.3",
     "prettier-plugin-tailwindcss": "^0.5.4",
     "rimraf": "^5.0.1",
     "vitest": "^0.34.6"
