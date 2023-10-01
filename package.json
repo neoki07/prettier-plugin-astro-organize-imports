@@ -32,10 +32,11 @@
   ],
   "scripts": {
     "_esbuild": "node build.mjs",
-    "build": "npm run _esbuild -- --minify",
-    "dev": "npm run _esbuild -- --watch",
-    "format": "prettier \"src/**/*.ts\" \"tests/**/*.ts\" --write",
-    "test": "vitest --run"
+    "_clean": "rimraf dist",
+    "build": "pnpm _clean && pnpm _esbuild",
+    "format": "prettier \"src/**/*.ts\" \"tests/**/*.ts\" \"build.mjs\" --write",
+    "test": "pnpm build && vitest --run",
+    "prepare": "pnpm build"
   },
   "dependencies": {
     "typescript": "^5.2.2"

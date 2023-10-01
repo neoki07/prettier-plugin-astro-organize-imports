@@ -1,7 +1,7 @@
+import esbuild from 'esbuild'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import esbuild from 'esbuild'
 
 /**
  * @returns {import('esbuild').Plugin}
@@ -42,7 +42,7 @@ let context = await esbuild.context({
   platform: 'node',
   target: 'node14.21.3',
   external: ['prettier'],
-  minify: process.argv.includes('--minify'),
+  minify: true,
   entryPoints: [path.resolve(__dirname, './src/index.js')],
   outfile: path.resolve(__dirname, './dist/index.mjs'),
   format: 'esm',
@@ -50,9 +50,5 @@ let context = await esbuild.context({
 })
 
 await context.rebuild()
-
-if (process.argv.includes('--watch')) {
-  await context.watch()
-}
 
 await context.dispose()
