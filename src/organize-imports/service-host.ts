@@ -1,5 +1,5 @@
 import { dirname } from 'path'
-import ts from 'typescript'
+import { ScriptSnapshot, getDefaultLibFileName, sys } from 'typescript'
 import { findTsconfig } from './find-tsconfig'
 import { getCompilerOptions } from './get-compiler-options'
 
@@ -14,21 +14,21 @@ export function getTypeScriptLanguageServiceHost(
   const compilerOptions = getCompilerOptions(tsconfig)
 
   return {
-    directoryExists: ts.sys.directoryExists,
-    fileExists: ts.sys.fileExists,
-    getDefaultLibFileName: ts.getDefaultLibFileName,
-    getDirectories: ts.sys.getDirectories,
-    readDirectory: ts.sys.readDirectory,
-    readFile: ts.sys.readFile,
+    directoryExists: sys.directoryExists,
+    fileExists: sys.fileExists,
+    getDefaultLibFileName: getDefaultLibFileName,
+    getDirectories: sys.getDirectories,
+    readDirectory: sys.readDirectory,
+    readFile: sys.readFile,
     getCurrentDirectory: () =>
-      tsconfig ? dirname(tsconfig) : ts.sys.getCurrentDirectory(),
+      tsconfig ? dirname(tsconfig) : sys.getCurrentDirectory(),
     getCompilationSettings: () => compilerOptions,
-    getNewLine: () => ts.sys.newLine,
+    getNewLine: () => sys.newLine,
     getScriptFileNames: () => [path],
     getScriptVersion: () => '0',
     getScriptSnapshot: (filePath: string) => {
       if (filePath === path) {
-        return ts.ScriptSnapshot.fromString(content)
+        return ScriptSnapshot.fromString(content)
       }
     },
   }

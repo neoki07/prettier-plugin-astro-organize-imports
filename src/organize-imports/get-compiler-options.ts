@@ -1,5 +1,10 @@
 import { dirname } from 'path'
-import ts from 'typescript'
+import {
+  getDefaultCompilerOptions,
+  parseJsonConfigFileContent,
+  readConfigFile,
+  sys,
+} from 'typescript'
 import { memoize } from './memoize'
 
 /**
@@ -7,12 +12,12 @@ import { memoize } from './memoize'
  */
 export const getCompilerOptions = memoize((tsconfig?: string) => {
   const compilerOptions = tsconfig
-    ? ts.parseJsonConfigFileContent(
-        ts.readConfigFile(tsconfig, ts.sys.readFile).config,
-        ts.sys,
+    ? parseJsonConfigFileContent(
+        readConfigFile(tsconfig, sys.readFile).config,
+        sys,
         dirname(tsconfig),
       ).options
-    : ts.getDefaultCompilerOptions()
+    : getDefaultCompilerOptions()
 
   compilerOptions.allowJs = true // for automatic JS support
 
