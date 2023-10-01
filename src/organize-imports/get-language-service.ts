@@ -1,11 +1,11 @@
-import ts from 'typescript'
 import { getTypeScriptLanguageServiceHost } from './service-host'
+import {createLanguageService} from "typescript";
 
 /**
  * Get the correct language service for the given parser.
  */
 export function getLanguageService(filepath: string, code: string) {
-  return ts.createLanguageService(
+  return createLanguageService(
     getTypeScriptLanguageServiceHost(filepath, code),
   )
 }

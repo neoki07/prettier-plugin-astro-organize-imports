@@ -1,18 +1,18 @@
 import { dirname } from 'path'
-import ts from 'typescript'
 import { memoize } from './memoize'
+import {parseJsonConfigFileContent, sys, readConfigFile, getDefaultCompilerOptions} from "typescript";
 
 /**
  * Get the compiler options from the path to a tsconfig.
  */
 export const getCompilerOptions = memoize((tsconfig?: string) => {
   const compilerOptions = tsconfig
-    ? ts.parseJsonConfigFileContent(
-        ts.readConfigFile(tsconfig, ts.sys.readFile).config,
-        ts.sys,
+    ? parseJsonConfigFileContent(
+        readConfigFile(tsconfig, sys.readFile).config,
+        sys,
         dirname(tsconfig),
       ).options
-    : ts.getDefaultCompilerOptions()
+    : getDefaultCompilerOptions()
 
   compilerOptions.allowJs = true // for automatic JS support
 

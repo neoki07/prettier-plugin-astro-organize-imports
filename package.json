@@ -33,7 +33,8 @@
   "scripts": {
     "_esbuild": "node build.mjs",
     "build": "npm run _esbuild -- --minify",
-    "dev": "npm run _esbuild -- --watch"
+    "dev": "npm run _esbuild -- --watch",
+    "test": "vitest"
   },
   "dependencies": {
     "typescript": "^5.2.2"
@@ -44,7 +45,8 @@
     "prettier": "^3.0.3",
     "prettier-plugin-astro": "^0.12.0",
     "prettier-plugin-tailwindcss": "^0.5.4",
-    "rimraf": "^5.0.1"
+    "rimraf": "^5.0.1",
+    "vitest": "^0.34.6"
   },
   "peerDependencies": {
     "prettier": "^3.0",
