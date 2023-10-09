@@ -7,6 +7,10 @@
 
 A plugin that makes Prettier organize your imports (i. e. sorts, combines and removes unused ones) in Astro files using the `organizeImports` feature of the TypeScript language service API.
 
+<p align="center">
+  <img src="assets/images/demo.gif" alt="Demo" />
+</p>
+
 ## Installation
 
 ```shell
