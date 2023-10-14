@@ -1,4 +1,4 @@
-# Prettier Plugin: Organize Imports for Astro
+# [Prettier](https://prettier.io/) Plugin: Organize Imports for [Astro](https://astro.build/)
 
 [![license](https://img.shields.io/npm/l/prettier-plugin-astro-organize-imports.svg)](https://github.com/resonance-box/prettier-plugin-astro-organize-imports/blob/main/LICENSE.md)
 [![npm](https://img.shields.io/npm/v/prettier-plugin-astro-organize-imports.svg)](https://www.npmjs.com/package/prettier-plugin-astro-organize-imports)
