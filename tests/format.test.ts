@@ -21,6 +21,11 @@ const tests = [
     mode: 'RemoveUnused',
   },
   {
+    name: 'function in JSX',
+    input: input.functionInJsx,
+    expected: expected.functionInJsx,
+  },
+  {
     name: 'organize-imports-ignore',
     input: input.organizeImportsIgnore,
     expected: expected.organizeImportsIgnore,
