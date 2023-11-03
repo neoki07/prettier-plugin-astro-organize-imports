@@ -76,6 +76,16 @@ import Foo from './Foo.astro'
 </Foo>
 `.trim()
 
+const functionInJsx = `
+---
+import { foo } from './Foo'
+---
+
+<Foo>
+  <Bar>{foo(0)}</Bar>
+</Foo>
+`.trim()
+
 const organizeImportsIgnore = `
 ---
 // organize-imports-ignore
@@ -108,6 +118,7 @@ import { bar, baz } from './Baz'
 
 export const input = {
   basic: inputBasic,
+  functionInJsx,
   organizeImportsIgnore,
   tslintDisableOrderedImports,
 }
@@ -116,6 +127,7 @@ export const expected = {
   basic: expectedBasic,
   sortAndCombine: expectedSortAndCombine,
   removeUnused: expectedRemoveUnused,
+  functionInJsx,
   organizeImportsIgnore,
   tslintDisableOrderedImports,
   withAstroPlugin: expectedWithAstroPlugin,

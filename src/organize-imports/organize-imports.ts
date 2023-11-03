@@ -2,7 +2,7 @@ import { applyTextChanges } from './apply-text-changes'
 import { getLanguageService } from './get-language-service'
 import type { OrganizeImportsMode } from 'typescript'
 
-const FILE_PATH = 'file.ts'
+const FILE_PATH = 'file.tsx'
 
 /**
  * Organize the given code's imports.
