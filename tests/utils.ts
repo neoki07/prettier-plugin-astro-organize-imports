@@ -1,3 +1,4 @@
+import { readFileSync } from 'fs'
 import path from 'path'
 import prettier, { type Options } from 'prettier'
 
@@ -14,4 +15,10 @@ export async function format(str: string, options: Options = {}) {
   })
 
   return result.trim()
+}
+
+export function readFixture(name: string) {
+  const filePath = path.resolve(__dirname, `./fixtures/${name}.astro`)
+  const file = readFileSync(filePath, 'utf8')
+  return file.trim()
 }
