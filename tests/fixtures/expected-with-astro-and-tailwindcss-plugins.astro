@@ -1,0 +1,9 @@
+---
+import Bar from './Bar.astro'
+import { bar, foo } from './Baz'
+import Foo from './Foo.astro'
+---
+
+<Foo class="p-0 sm:p-0">
+  <Bar>{foo} {bar}</Bar>
+</Foo>

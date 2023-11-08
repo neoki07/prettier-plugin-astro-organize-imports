@@ -1,50 +1,49 @@
 import { describe, expect, test } from 'vitest'
-import { expected, input } from './fixtures'
-import { format } from './utils'
+import { format, readFixture } from './utils'
 
 const tests = [
   {
     name: 'basic',
-    input: input.basic,
-    expected: expected.basic,
+    input: readFixture('input-basic'),
+    expected: readFixture('expected-basic'),
   },
   {
     name: 'sort and combine',
-    input: input.basic,
-    expected: expected.sortAndCombine,
+    input: readFixture('input-basic'),
+    expected: readFixture('expected-sort-and-combine'),
     mode: 'SortAndCombine',
   },
   {
     name: 'remove unused',
-    input: input.basic,
-    expected: expected.removeUnused,
+    input: readFixture('input-basic'),
+    expected: readFixture('expected-remove-unused'),
     mode: 'RemoveUnused',
   },
   {
     name: 'function in JSX',
-    input: input.functionInJsx,
-    expected: expected.functionInJsx,
+    input: readFixture('function-in-jsx'),
+    expected: readFixture('function-in-jsx'),
   },
   {
     name: 'organize-imports-ignore',
-    input: input.organizeImportsIgnore,
-    expected: expected.organizeImportsIgnore,
+    input: readFixture('organize-imports-ignore'),
+    expected: readFixture('organize-imports-ignore'),
   },
   {
     name: 'tslint:disable:ordered-imports',
-    input: input.tslintDisableOrderedImports,
-    expected: expected.tslintDisableOrderedImports,
+    input: readFixture('tslint-disable-ordered-imports'),
+    expected: readFixture('tslint-disable-ordered-imports'),
   },
   {
     name: 'with prettier-plugin-astro',
-    input: input.basic,
-    expected: expected.withAstroPlugin,
+    input: readFixture('input-basic'),
+    expected: readFixture('expected-with-astro-plugin'),
     plugins: ['prettier-plugin-astro'],
   },
   {
     name: 'with prettier-plugin-astro and prettier-plugin-tailwindcss',
-    input: input.basic,
-    expected: expected.withAstroAndTailwindCSSPlugins,
+    input: readFixture('input-basic'),
+    expected: readFixture('expected-with-astro-and-tailwindcss-plugins'),
     plugins: ['prettier-plugin-astro', 'prettier-plugin-tailwindcss'],
   },
 ]
