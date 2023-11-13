@@ -24,10 +24,10 @@ devDependencies:
     version: 0.12.1
   prettier-plugin-organize-imports:
     specifier: ^3.2.3
-    version: 3.2.3(prettier@3.1.0)(typescript@5.2.2)
+    version: 3.2.4(prettier@3.1.0)(typescript@5.2.2)
   prettier-plugin-tailwindcss:
     specifier: ^0.5.4
-    version: 0.5.7(prettier-plugin-astro@0.12.1)(prettier-plugin-organize-imports@3.2.3)(prettier@3.1.0)
+    version: 0.5.7(prettier-plugin-astro@0.12.1)(prettier-plugin-organize-imports@3.2.4)(prettier@3.1.0)
   rimraf:
     specifier: ^5.0.1
     version: 5.0.5
@@ -883,8 +883,8 @@ packages:
       sass-formatter: 0.7.8
     dev: true
 
-  /prettier-plugin-organize-imports@3.2.3(prettier@3.1.0)(typescript@5.2.2):
-    resolution: {integrity: sha512-KFvk8C/zGyvUaE3RvxN2MhCLwzV6OBbFSkwZ2OamCrs9ZY4i5L77jQ/w4UmUr+lqX8qbaqVq6bZZkApn+IgJSg==}
+  /prettier-plugin-organize-imports@3.2.4(prettier@3.1.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-6m8WBhIp0dfwu0SkgfOxJqh+HpdyfqSSLfKKRZSFbDuEQXDDndb8fTpRWkUrX/uBenkex3MgnVk0J3b3Y5byog==}
     peerDependencies:
       '@volar/vue-language-plugin-pug': ^1.0.4
       '@volar/vue-typescript': ^1.0.4
@@ -900,7 +900,7 @@ packages:
       typescript: 5.2.2
     dev: true
 
-  /prettier-plugin-tailwindcss@0.5.7(prettier-plugin-astro@0.12.1)(prettier-plugin-organize-imports@3.2.3)(prettier@3.1.0):
+  /prettier-plugin-tailwindcss@0.5.7(prettier-plugin-astro@0.12.1)(prettier-plugin-organize-imports@3.2.4)(prettier@3.1.0):
     resolution: {integrity: sha512-4v6uESAgwCni6YF6DwJlRaDjg9Z+al5zM4JfngcazMy4WEf/XkPS5TEQjbD+DZ5iNuG6RrKQLa/HuX2SYzC3kQ==}
     engines: {node: '>=14.21.3'}
     peerDependencies:
@@ -954,7 +954,7 @@ packages:
     dependencies:
       prettier: 3.1.0
       prettier-plugin-astro: 0.12.1
-      prettier-plugin-organize-imports: 3.2.3(prettier@3.1.0)(typescript@5.2.2)
+      prettier-plugin-organize-imports: 3.2.4(prettier@3.1.0)(typescript@5.2.2)
     dev: true
 
   /prettier@3.1.0:
