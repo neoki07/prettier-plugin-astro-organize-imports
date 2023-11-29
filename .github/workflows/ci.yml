@@ -10,19 +10,34 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  type-check:
+    name: Type check
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
+      - run: pnpm typecheck
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: "8"
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
+      - run: pnpm lint
 
-      - name: Install dependencies
-        run: pnpm install
+  format-check:
+    name: Format check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
+      - run: pnpm format:check
 
-      - name: Test
-        run: pnpm test
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
+      - run: pnpm test

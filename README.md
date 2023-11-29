@@ -19,6 +19,7 @@ npm install -D prettier typescript prettier-plugin-astro-organize-imports
 
 ### Recommended configuration
 
+<!-- prettier-ignore -->
 ```json5
 // .prettierrc
 {
@@ -34,6 +35,8 @@ npm install -D prettier typescript prettier-plugin-astro-organize-imports
 }
 ```
 
+<!-- prettier-ignore-end -->
+
 ## Usage
 
 After following the steps in the 'Installation' section, the plugin will function when you run the Prettier formatting command.
@@ -48,6 +51,7 @@ The plugin provides an option named `astroOrganizeImportsMode` that lets you cho
 
 You can specify the mode in your Prettier configuration file as follows:
 
+<!-- prettier-ignore -->
 ```json5
 // .prettierrc
 {
@@ -55,6 +59,8 @@ You can specify the mode in your Prettier configuration file as follows:
   "astroOrganizeImportsMode": "All" // or "SortAndCombine" or "RemoveUnused"
 }
 ```
+
+<!-- prettier-ignore-end -->
 
 Remember to replace "All" with "SortAndCombine" or "RemoveUnused" depending on your preferences.
 
@@ -67,6 +73,7 @@ This plugin uses Prettier APIs that can only be used by one plugin at a time, ma
 
 One limitation with this approach is that `prettier-plugin-astro-organize-imports` must be loaded last. You can do this by listing each of your Prettier plugins in the `plugins` array:
 
+<!-- prettier-ignore -->
 ```json5
 // .prettierrc
 {
@@ -86,6 +93,8 @@ One limitation with this approach is that `prettier-plugin-astro-organize-import
   ]
 }
 ```
+
+<!-- prettier-ignore-end -->
 
 ## Related Prettier plugins
 

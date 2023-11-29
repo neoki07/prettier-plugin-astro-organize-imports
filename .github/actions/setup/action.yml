@@ -1,0 +1,14 @@
+name: Setup
+description: 'Setup the development environment'
+
+runs:
+  using: composite
+  steps:
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8
+
+    - name: Install dependencies
+      run: pnpm install
+      shell: bash

@@ -16,7 +16,7 @@ export function getTypeScriptLanguageServiceHost(
   return {
     directoryExists: sys.directoryExists,
     fileExists: sys.fileExists,
-    getDefaultLibFileName: getDefaultLibFileName,
+    getDefaultLibFileName,
     getDirectories: sys.getDirectories,
     readDirectory: sys.readDirectory,
     readFile: sys.readFile,
@@ -30,6 +30,7 @@ export function getTypeScriptLanguageServiceHost(
       if (filePath === path) {
         return ScriptSnapshot.fromString(content)
       }
+      return undefined
     },
   }
 }

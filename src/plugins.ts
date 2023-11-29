@@ -6,15 +6,39 @@ const basePlugin = 'prettier-plugin-astro'
 async function loadIfExistsESM(name: string) {
   try {
     if (req(import.meta.url).resolve(name)) {
-      let mod = await import(name)
+      const mod = await import(name)
       return mod.default ?? mod
     }
   } catch (e) {
-    return {
-      parsers: {},
-      printers: {},
-    }
+    /* empty */
   }
+
+  return {
+    parsers: {},
+    printers: {},
+  }
+}
+
+async function loadBasePlugins() {
+  const mod = await loadIfExistsESM(basePlugin)
+  return mod
+}
+
+async function loadCompatiblePlugins() {
+  const plugins = [basePlugin, 'prettier-plugin-tailwindcss']
+
+  const result = await Promise.all(
+    plugins.map(async (name) => {
+      const mod = await loadIfExistsESM(name)
+
+      return {
+        name,
+        mod,
+      }
+    }),
+  )
+
+  return result
 }
 
 export async function loadPlugin() {
@@ -25,7 +49,7 @@ export async function loadPlugin() {
 
   function maybeResolve(name: string) {
     try {
-      return req.resolve(name)
+      return req(import.meta.url).resolve(name)
     } catch (err) {
       return null
     }
@@ -40,9 +64,9 @@ export async function loadPlugin() {
       throw new Error(`options.plugins is not defined`)
     }
 
-    let path = maybeResolve(name)
+    const path = maybeResolve(name)
 
-    for (let plugin of options.plugins) {
+    for (const plugin of options.plugins) {
       if (typeof plugin === 'string') {
         throw new Error(
           `Plugin must be \`prettier.Plugin\`. but got \`string\`: ${plugin}`,
@@ -50,18 +74,18 @@ export async function loadPlugin() {
       }
 
       // options.plugins.*.name == name
-      if (plugin.name === name) {
+      if ('name' in plugin && plugin.name === name) {
         return mod
       }
 
       // options.plugins.*.name == path
-      if (plugin.name === path) {
+      if ('name' in plugin && plugin.name === path) {
         return mod
       }
 
       // basically options.plugins.* == mod
       // But that can't work because prettier normalizes plugins which destroys top-level object identity
-      if (plugin.parsers && mod.parsers && plugin.parsers == mod.parsers) {
+      if (plugin.parsers && mod.parsers && plugin.parsers === mod.parsers) {
         return mod
       }
     }
@@ -77,11 +101,11 @@ export async function loadPlugin() {
         return {}
       }
 
-      let parser = {}
+      const parser = {}
 
       // Now load parsers from "compatible" plugins if any
       for (const { name, mod } of compatible) {
-        let plugin = findEnabledPlugin(options, name, mod)
+        const plugin = findEnabledPlugin(options, name, mod)
         if (plugin) {
           Object.assign(parser, plugin.parsers?.astro)
         }
@@ -95,10 +119,10 @@ export async function loadPlugin() {
         return {}
       }
 
-      let parser = {}
+      const parser = {}
 
       for (const { name, mod } of compatible) {
-        let plugin = findEnabledPlugin(options, name, mod)
+        const plugin = findEnabledPlugin(options, name, mod)
         if (plugin) {
           Object.assign(parser, plugin.printers?.astro)
         }
@@ -107,23 +131,4 @@ export async function loadPlugin() {
       return parser
     },
   }
-}
-
-async function loadBasePlugins() {
-  return await loadIfExistsESM(basePlugin)
-}
-
-async function loadCompatiblePlugins() {
-  const plugins = [basePlugin, 'prettier-plugin-tailwindcss']
-
-  return await Promise.all(
-    plugins.map(async (name) => {
-      let mod = await loadIfExistsESM(name)
-
-      return {
-        name,
-        mod,
-      }
-    }),
-  )
 }

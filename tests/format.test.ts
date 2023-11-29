@@ -1,3 +1,4 @@
+import { OrganizeImportsMode } from 'typescript'
 import { describe, expect, test } from 'vitest'
 import { format, readFixture } from './utils'
 
@@ -11,13 +12,13 @@ const tests = [
     name: 'sort and combine',
     input: readFixture('input-basic'),
     expected: readFixture('expected-sort-and-combine'),
-    mode: 'SortAndCombine',
+    mode: OrganizeImportsMode.SortAndCombine,
   },
   {
     name: 'remove unused',
     input: readFixture('input-basic'),
     expected: readFixture('expected-remove-unused'),
-    mode: 'RemoveUnused',
+    mode: OrganizeImportsMode.RemoveUnused,
   },
   {
     name: 'function in JSX',
