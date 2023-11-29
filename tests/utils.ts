@@ -4,7 +4,7 @@ import prettier, { type Options } from 'prettier'
 
 const pluginPath = path.resolve(__dirname, '../dist/index.mjs')
 
-export async function format(str: string, options: Options = {}) {
+export async function format(str: string, options: Options) {
   const result = await prettier.format(str, {
     semi: false,
     singleQuote: true,
