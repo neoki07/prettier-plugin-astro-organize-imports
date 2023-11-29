@@ -34,6 +34,7 @@
     "_esbuild": "node build.mjs",
     "_clean": "rimraf dist",
     "build": "pnpm _clean && pnpm _esbuild",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts --cache",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
