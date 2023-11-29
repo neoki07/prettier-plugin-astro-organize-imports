@@ -35,7 +35,8 @@
     "_clean": "rimraf dist",
     "build": "pnpm _clean && pnpm _esbuild",
     "lint": "eslint . --ext .ts --cache",
-    "format": "prettier \"src/**/*.ts\" \"tests/**/*.ts\" \"build.mjs\" --write",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "pnpm build && vitest --run",
     "prepare": "pnpm build"
   },
