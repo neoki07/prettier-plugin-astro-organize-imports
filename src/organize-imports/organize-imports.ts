@@ -1,6 +1,10 @@
-import { applyTextChanges } from './apply-text-changes'
-import { getLanguageService } from './get-language-service'
 import type { OrganizeImportsMode } from 'typescript'
+import { applyTextChanges } from './apply-text-changes'
+import {
+  ORGANIZE_IMPORTS_IGNORE_COMMENT,
+  TSLINT_DISABLE_ORDERED_IMPORTS_COMMENT,
+} from './constants'
+import { getLanguageService } from './get-language-service'
 
 const FILE_PATH = 'file.tsx'
 
@@ -28,8 +32,8 @@ function organize(code: string, mode: OrganizeImportsMode) {
  */
 export function organizeImports(code: string, mode: OrganizeImportsMode) {
   if (
-    code.includes('// organize-imports-ignore') ||
-    code.includes('// tslint:disable:ordered-imports')
+    code.includes(ORGANIZE_IMPORTS_IGNORE_COMMENT) ||
+    code.includes(TSLINT_DISABLE_ORDERED_IMPORTS_COMMENT)
   ) {
     return code
   }
