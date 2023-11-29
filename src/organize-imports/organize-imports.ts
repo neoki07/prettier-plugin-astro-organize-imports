@@ -40,10 +40,10 @@ export function organizeImports(code: string, mode: OrganizeImportsMode) {
 
   try {
     const formatted = organize(code, mode)
-    // TODO: follow endOfLine option of prettier
     return formatted.replace(/(\r\n|\r)/gm, '\n')
   } catch (error) {
     if (process.env.DEBUG) {
+      // eslint-disable-next-line no-console
       console.error(error)
     }
 

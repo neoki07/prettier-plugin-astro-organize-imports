@@ -4,8 +4,7 @@
 export function memoize(f: (...args: any[]) => any) {
   const cache = new Map()
 
-  // @ts-ignore
-  return function (cacheKey, ...rest) {
+  return function _memoize(cacheKey: any, ...rest: any[]) {
     if (cache.has(cacheKey)) {
       return cache.get(cacheKey)
     }
