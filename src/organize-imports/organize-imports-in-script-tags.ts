@@ -15,7 +15,7 @@ export function organizeImportsInScriptTags(
     ast.children
       .slice()
       .reverse()
-      .forEach((node) => {
+      .forEach((node: any) => {
         if (
           node.type === 'element' &&
           node.name === 'script' &&
