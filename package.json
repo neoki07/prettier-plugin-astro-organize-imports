@@ -67,9 +67,6 @@
     "prettier-plugin-tailwindcss": "*"
   },
   "peerDependenciesMeta": {
-    "prettier-plugin-astro": {
-      "optional": true
-    },
     "prettier-plugin-tailwindcss": {
       "optional": true
     }

@@ -9,7 +9,10 @@ import type {
   SupportOption,
 } from 'prettier'
 import { OrganizeImportsMode } from 'typescript'
-import { organizeImports } from './organize-imports'
+import {
+  organizeImports,
+  organizeImportsInScriptTags,
+} from './organize-imports'
 import { loadPlugin } from './plugins'
 
 export interface PluginOptions {
@@ -31,9 +34,11 @@ export const parsers: Record<string, Parser> = {
     ...plugin.parser,
 
     preprocess(code, options) {
+      const formattedCode = organizeImportsInScriptTags(code, options, plugin)
+
       const original = plugin.originalParser(options)
       return organizeImports(
-        original.preprocess?.(code, options) ?? code,
+        original.preprocess?.(formattedCode, options) ?? formattedCode,
         options.astroOrganizeImportsMode,
       )
     },
