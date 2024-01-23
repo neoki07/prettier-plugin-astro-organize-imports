@@ -26,6 +26,18 @@ const tests = [
     expected: readFixture('function-in-jsx'),
   },
   {
+    name: 'empty script tag',
+    input: readFixture('empty-script-tag'),
+    expected: readFixture('empty-script-tag'),
+    plugins: [],
+  },
+  {
+    name: 'inside script tags',
+    input: readFixture('input-script-tags'),
+    expected: readFixture('expected-script-tags'),
+    plugins: [],
+  },
+  {
     name: 'organize-imports-ignore',
     input: readFixture('organize-imports-ignore'),
     expected: readFixture('organize-imports-ignore'),
