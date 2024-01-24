@@ -34,7 +34,7 @@ export const parsers: Record<string, Parser> = {
     ...plugin.parser,
 
     preprocess(code, options) {
-      const formattedCode = organizeImportsInScriptTags(code, options, plugin)
+      const formattedCode = organizeImportsInScriptTags(code, options)
 
       const original = plugin.originalParser(options)
       return organizeImports(
