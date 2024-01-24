@@ -11,7 +11,7 @@ function patchCjsInterop() {
     name: 'patch-cjs-interop',
     setup(build) {
       build.onEnd(async () => {
-        let outfile = './dist/index.mjs'
+        let outfile = path.resolve(__dirname, '../dist/index.mjs')
 
         let content = await fs.promises.readFile(outfile)
 
@@ -43,8 +43,8 @@ let context = await esbuild.context({
   target: 'node14.21.3',
   external: ['prettier'],
   minify: true,
-  entryPoints: [path.resolve(__dirname, './src/index.js')],
-  outfile: path.resolve(__dirname, './dist/index.mjs'),
+  entryPoints: [path.resolve(__dirname, '../src/index.js')],
+  outfile: path.resolve(__dirname, '../dist/index.mjs'),
   format: 'esm',
   plugins: [patchCjsInterop()],
 })

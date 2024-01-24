@@ -32,5 +32,5 @@ module.exports = {
       },
     ],
   },
-  ignorePatterns: ['dist', '.eslintrc.js'],
+  ignorePatterns: ['node_modules', 'dist', '.eslintrc.js', 'scripts'],
 }
