@@ -17,8 +17,18 @@ export async function format(str: string, options: Options) {
   return result.trim()
 }
 
-export function readFixture(name: string) {
-  const filePath = path.resolve(__dirname, `./fixtures/${name}.astro`)
-  const file = readFileSync(filePath, 'utf8')
-  return file.trim()
+export function readFixture(fixtureDir: string) {
+  const inputPath = path.resolve(
+    __dirname,
+    path.join('fixtures', fixtureDir, 'input.astro'),
+  )
+  const input = readFileSync(inputPath, 'utf8').trim()
+
+  const expectedPath = path.resolve(
+    __dirname,
+    path.join('fixtures', fixtureDir, 'expected.astro'),
+  )
+  const expected = readFileSync(expectedPath, 'utf8').trim()
+
+  return { input, expected }
 }
