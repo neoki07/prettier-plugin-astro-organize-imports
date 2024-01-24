@@ -35,7 +35,7 @@
     "_clean": "rimraf dist",
     "build": "pnpm _clean && pnpm _esbuild",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts --cache",
+    "lint": "eslint . --cache",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "pnpm build && vitest --run",
