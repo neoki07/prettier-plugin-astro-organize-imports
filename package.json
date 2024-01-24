@@ -31,7 +31,7 @@
     "dist"
   ],
   "scripts": {
-    "_esbuild": "node build.mjs",
+    "_esbuild": "node scripts/build.mjs",
     "_clean": "rimraf dist",
     "build": "pnpm _clean && pnpm _esbuild",
     "typecheck": "tsc --noEmit",
