@@ -42,6 +42,7 @@
     "prepare": "pnpm build"
   },
   "dependencies": {
+    "@astrojs/compiler": "^2.5.1",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
@@ -67,6 +68,9 @@
     "prettier-plugin-tailwindcss": "*"
   },
   "peerDependenciesMeta": {
+    "prettier-plugin-astro": {
+      "optional": true
+    },
     "prettier-plugin-tailwindcss": {
       "optional": true
     }

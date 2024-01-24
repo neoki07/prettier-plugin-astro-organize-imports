@@ -1,15 +1,14 @@
+import { parse } from '@astrojs/compiler/sync'
 import type { ParserOptions } from 'prettier'
-import type { loadPlugin } from '../plugins'
 import { organizeImports } from './organize-imports'
 
 export function organizeImportsInScriptTags(
   code: string,
   options: ParserOptions,
-  plugin: Awaited<ReturnType<typeof loadPlugin>>,
 ) {
-  const ast = plugin.parser.parse(code, options)
-
   let formattedCode = code
+
+  const { ast } = parse(code, { position: true })
 
   if (Array.isArray(ast.children)) {
     ast.children
