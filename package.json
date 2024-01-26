@@ -11,14 +11,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ot07/prettier-plugin-astro-organize-imports.git"
+    "url": "https://github.com/neokidev/prettier-plugin-astro-organize-imports.git"
   },
-  "homepage": "https://github.com/ot07/prettier-plugin-astro-organize-imports#readme",
+  "homepage": "https://github.com/neokidev/prettier-plugin-astro-organize-imports#readme",
   "bugs": {
-    "url": "https://github.com/ot07/prettier-plugin-astro-organize-imports/issues"
+    "url": "https://github.com/neokidev/prettier-plugin-astro-organize-imports/issues"
   },
   "license": "MIT",
-  "author": "ot07",
+  "author": "neoki",
   "engines": {
     "node": ">=16.0.0",
     "pnpm": ">=8.6.0"
