@@ -9,21 +9,16 @@
     "astro",
     "sort-imports"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/neokidev/prettier-plugin-astro-organize-imports.git"
-  },
   "homepage": "https://github.com/neokidev/prettier-plugin-astro-organize-imports#readme",
   "bugs": {
     "url": "https://github.com/neokidev/prettier-plugin-astro-organize-imports/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neokidev/prettier-plugin-astro-organize-imports.git"
+  },
   "license": "MIT",
   "author": "neoki",
-  "engines": {
-    "node": ">=16.0.0",
-    "pnpm": ">=8.6.0"
-  },
-  "packageManager": "pnpm@8.6.0",
   "main": "dist/index.mjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -31,16 +26,16 @@
     "dist"
   ],
   "scripts": {
-    "_esbuild": "node scripts/build.mjs",
     "_clean": "rimraf dist",
+    "_esbuild": "node scripts/build.mjs",
     "build": "pnpm _clean && pnpm _esbuild",
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint . --cache",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "pnpm build && vitest --run",
+    "postinstall": "lefthook install",
+    "lint": "eslint . --cache",
     "prepare": "pnpm build",
-    "postinstall": "lefthook install"
+    "test": "pnpm build && vitest --run",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@astrojs/compiler": "^2.5.3",
@@ -76,6 +71,11 @@
     "prettier-plugin-tailwindcss": {
       "optional": true
     }
+  },
+  "packageManager": "pnpm@8.6.0",
+  "engines": {
+    "node": ">=16.0.0",
+    "pnpm": ">=8.6.0"
   },
   "publishConfig": {
     "access": "public"
