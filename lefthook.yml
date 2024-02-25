@@ -1,9 +1,9 @@
 pre-commit:
   commands:
     quality:
-      run: pnpm format:check && pnpm lint && pnpm typecheck && pnpm test
+      run: pnpm format:check && pnpm lint && pnpm type-check && pnpm test
 
 pre-push:
   commands:
     quality:
-      run: pnpm format:check && pnpm lint && pnpm typecheck && pnpm test
+      run: pnpm format:check && pnpm lint && pnpm type-check && pnpm test

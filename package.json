@@ -26,16 +26,16 @@
     "dist"
   ],
   "scripts": {
-    "_clean": "rimraf dist",
-    "_esbuild": "node scripts/build.mjs",
-    "build": "pnpm _clean && pnpm _esbuild",
+    "build": "node scripts/build.mjs",
+    "clean": "rimraf dist",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "postinstall": "lefthook install",
-    "lint": "eslint . --cache",
-    "prepare": "pnpm build",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "test": "pnpm build && vitest --run",
-    "typecheck": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "postinstall": "lefthook install",
+    "prepublishOnly": "pnpm clean && pnpm build"
   },
   "dependencies": {
     "@astrojs/compiler": "^2.5.3",

@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
-      - run: pnpm typecheck
+      - run: pnpm type-check
 
   lint:
     name: Lint
