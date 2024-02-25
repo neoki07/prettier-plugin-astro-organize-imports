@@ -1,0 +1,9 @@
+pre-commit:
+  commands:
+    quality:
+      run: pnpm format:check && pnpm lint && pnpm typecheck && pnpm test
+
+pre-push:
+  commands:
+    quality:
+      run: pnpm format:check && pnpm lint && pnpm typecheck && pnpm test
