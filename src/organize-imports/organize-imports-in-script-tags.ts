@@ -2,6 +2,16 @@ import { parse } from '@astrojs/compiler/sync'
 import type { ParserOptions } from 'prettier'
 import { organizeImports } from './organize-imports'
 
+function substringByBytes(str: string, start: number, end?: number) {
+  const encoder = new TextEncoder()
+  const encodedStr = encoder.encode(str)
+
+  const slicedArray = encodedStr.slice(start, end)
+
+  const decoder = new TextDecoder()
+  return decoder.decode(slicedArray)
+}
+
 export function organizeImportsInScriptTags(
   code: string,
   options: ParserOptions,
@@ -23,9 +33,9 @@ export function organizeImportsInScriptTags(
           const child = node.children[0]
 
           formattedCode =
-            formattedCode.substring(0, child.position.start.offset) +
+            substringByBytes(formattedCode, 0, child.position.start.offset) +
             organizeImports(child.value, options.astroOrganizeImportsMode) +
-            formattedCode.substring(child.position.end.offset)
+            substringByBytes(formattedCode, child.position.end.offset)
         }
       })
   }

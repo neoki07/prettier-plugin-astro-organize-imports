@@ -32,6 +32,11 @@ const tests = [
     plugins: [],
   },
   {
+    name: 'multi-byte characters',
+    fixtureDir: 'multi-byte-characters',
+    plugins: [],
+  },
+  {
     name: 'organize-imports-ignore',
     fixtureDir: 'organize-imports-ignore',
   },
