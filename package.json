@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-astro-organize-imports",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A Prettier plugin for formatting imports in Astro files",
   "keywords": [
     "plugin",
