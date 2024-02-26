@@ -34,7 +34,7 @@
     "lint:fix": "eslint --fix .",
     "test": "pnpm build && vitest --run",
     "type-check": "tsc --noEmit",
-    "postinstall": "lefthook install",
+    "prepare": "lefthook install",
     "prepublishOnly": "pnpm clean && pnpm build"
   },
   "dependencies": {
