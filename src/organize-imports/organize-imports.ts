@@ -43,7 +43,6 @@ export function organizeImports(code: string, mode: OrganizeImportsMode) {
     return formatted.replace(/(\r\n|\r)/gm, '\n')
   } catch (error) {
     if (process.env.DEBUG) {
-      // eslint-disable-next-line no-console
       console.error(error)
     }
 
