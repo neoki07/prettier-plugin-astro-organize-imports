@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /**
  * Simple memoization utility that only uses the first argument as cache key and has no memory limit.
  */
