@@ -1,0 +1,17 @@
+---
+import { bar,foo } from './foo'
+
+const isTrue = true
+---
+
+{
+  isTrue ? (
+    foo() ? (
+      <div></div>
+    ) : bar() ? (
+      <div></div>
+    ) : (
+      <div></div>
+    )
+  ) : null
+}
