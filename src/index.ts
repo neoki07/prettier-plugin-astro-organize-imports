@@ -13,6 +13,14 @@ import {
   organizeImports,
   organizeImportsInScriptTags,
 } from './organize-imports'
+import {
+  decodeCodeFences,
+  encodeCodeFences,
+} from './organize-imports/code-fence'
+import {
+  unwrapExpressionWithComponent,
+  wrapExpressionWithComponent,
+} from './organize-imports/expression'
 import { loadPlugin } from './plugins'
 
 export interface PluginOptions {
@@ -34,13 +42,20 @@ export const parsers: Record<string, Parser> = {
     ...plugin.parser,
 
     preprocess(code, options) {
-      const formattedCode = organizeImportsInScriptTags(code, options)
+      const originalParser = plugin.originalParser(options)
 
-      const original = plugin.originalParser(options)
-      return organizeImports(
-        original.preprocess?.(formattedCode, options) ?? formattedCode,
-        options.astroOrganizeImportsMode,
-      )
+      const pipeline = [
+        wrapExpressionWithComponent,
+        encodeCodeFences,
+        (code: string) => organizeImportsInScriptTags(code, options),
+        (code: string) => originalParser.preprocess?.(code, options) ?? code,
+        (code: string) =>
+          organizeImports(code, options.astroOrganizeImportsMode),
+        decodeCodeFences,
+        unwrapExpressionWithComponent,
+      ]
+
+      return pipeline.reduce((code, fn) => fn(code), code)
     },
 
     parse(text, options) {

@@ -2,25 +2,15 @@ import { parse } from '@astrojs/compiler/sync'
 import type { Node } from '@astrojs/compiler/types'
 import type { ParserOptions } from 'prettier'
 import { organizeImports } from './organize-imports'
-
-function substringByBytes(str: string, start: number, end?: number) {
-  const encoder = new TextEncoder()
-  const encodedStr = encoder.encode(str)
-
-  const slicedArray = encodedStr.slice(start, end)
-
-  const decoder = new TextDecoder()
-  return decoder.decode(slicedArray)
-}
+import { substringByBytes } from './substring'
 
 export function organizeImportsInScriptTags(
   code: string,
   options: ParserOptions,
 ) {
-  let formattedCode = code
-
   const { ast } = parse(code, { position: true })
 
+  let formattedCode = code
   if (Array.isArray(ast.children)) {
     ast.children
       .slice()

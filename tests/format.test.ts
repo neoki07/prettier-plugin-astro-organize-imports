@@ -22,6 +22,10 @@ const tests = [
     fixtureDir: 'function-in-jsx',
   },
   {
+    name: 'function in expression',
+    fixtureDir: 'function-in-expression',
+  },
+  {
     name: 'empty script tag',
     fixtureDir: 'empty-script-tag',
     plugins: [],
