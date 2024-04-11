@@ -3,41 +3,20 @@ name: ci
 on:
   push:
     branches:
-      - "main"
+      - main
   pull_request:
-    branches:
-      - "main"
   workflow_dispatch:
 
 jobs:
-  type-check:
-    name: Type check
+  quality:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup
-      - run: pnpm type-check
-
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup
-      - run: pnpm lint
-
-  format-check:
-    name: Format check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8
+      - run: pnpm install
       - run: pnpm format:check
-
-  test:
-    name: Run tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup
+      - run: pnpm lint
+      - run: pnpm type-check
       - run: pnpm test
