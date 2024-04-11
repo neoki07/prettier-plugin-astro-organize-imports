@@ -14,10 +14,6 @@ import {
   organizeImportsInScriptTags,
 } from './organize-imports'
 import {
-  decodeCodeFences,
-  encodeCodeFences,
-} from './organize-imports/code-fence'
-import {
   unwrapExpressionWithComponent,
   wrapExpressionWithComponent,
 } from './organize-imports/expression'
@@ -46,12 +42,10 @@ export const parsers: Record<string, Parser> = {
 
       const pipeline = [
         wrapExpressionWithComponent,
-        encodeCodeFences,
         (code: string) => organizeImportsInScriptTags(code, options),
         (code: string) => originalParser.preprocess?.(code, options) ?? code,
         (code: string) =>
           organizeImports(code, options.astroOrganizeImportsMode),
-        decodeCodeFences,
         unwrapExpressionWithComponent,
       ]
 

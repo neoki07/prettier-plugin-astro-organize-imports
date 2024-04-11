@@ -1,0 +1,9 @@
+---
+import { foo } from './Foo'
+
+const isTrue = true
+---
+
+<Foo class="foo">
+  {isTrue ? <Bar a={foo(0)}></Bar> : null}
+</Foo>
