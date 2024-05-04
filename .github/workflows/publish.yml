@@ -12,14 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
+      - uses: actions/setup-node@v4
         with:
-          version: 8
-      - run: pnpm install --ignore-scripts
+          node-version: 20
+      - run: npm install --legacy-peer-deps --ignore-scripts
       - id: changesets
         uses: changesets/action@v1
         with:
-          publish: pnpm run publish
+          publish: npm run publish
           commit: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
