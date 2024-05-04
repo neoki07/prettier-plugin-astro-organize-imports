@@ -14,7 +14,7 @@ A plugin that makes Prettier organize your imports (i. e. sorts, combines and re
 ## Installation
 
 ```shell
-npm install -D prettier typescript prettier-plugin-astro-organize-imports
+npm install -D prettier prettier-plugin-astro-organize-imports
 ```
 
 ### Recommended configuration
