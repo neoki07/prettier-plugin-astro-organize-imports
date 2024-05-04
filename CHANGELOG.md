@@ -1,5 +1,11 @@
 # prettier-plugin-astro-organize-imports
 
+## 0.4.7
+
+### Patch Changes
+
+- [#149](https://github.com/ne-oki/prettier-plugin-astro-organize-imports/pull/149) [`9abd005`](https://github.com/ne-oki/prettier-plugin-astro-organize-imports/commit/9abd00510bd417b485c6f5738f042da6e0989f19) Thanks [@ne-oki](https://github.com/ne-oki)! - Fix installation command
+
 ## 0.4.6
 
 ### Patch Changes
