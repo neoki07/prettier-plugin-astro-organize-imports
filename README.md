@@ -1,9 +1,9 @@
 # [Prettier](https://prettier.io/) Plugin: Organize Imports for [Astro](https://astro.build/)
 
-[![license](https://img.shields.io/github/license/ne-oki/prettier-plugin-astro-organize-imports)](https://github.com/ne-oki/prettier-plugin-astro-organize-imports/blob/main/LICENSE)
+[![license](https://img.shields.io/github/license/neokidev/prettier-plugin-astro-organize-imports)](https://github.com/neokidev/prettier-plugin-astro-organize-imports/blob/main/LICENSE)
 [![npm](https://img.shields.io/npm/v/prettier-plugin-astro-organize-imports.svg)](https://www.npmjs.com/package/prettier-plugin-astro-organize-imports)
 [![npm downloads](https://img.shields.io/npm/dm/prettier-plugin-astro-organize-imports)](https://www.npmjs.com/package/prettier-plugin-astro-organize-imports)
-[![ci](https://github.com/ne-oki/prettier-plugin-astro-organize-imports/actions/workflows/ci.yml/badge.svg)](https://github.com/ne-oki/prettier-plugin-astro-organize-imports/actions/workflows/ci.yml)
+[![ci](https://github.com/neokidev/prettier-plugin-astro-organize-imports/actions/workflows/ci.yml/badge.svg)](https://github.com/neokidev/prettier-plugin-astro-organize-imports/actions/workflows/ci.yml)
 
 A plugin that makes Prettier organize your imports (i. e. sorts, combines and removes unused ones) in Astro files using the `organizeImports` feature of the TypeScript language service API.
 
