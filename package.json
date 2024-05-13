@@ -9,13 +9,13 @@
     "astro",
     "sort-imports"
   ],
-  "homepage": "https://github.com/ne-oki/prettier-plugin-astro-organize-imports#readme",
+  "homepage": "https://github.com/neokidev/prettier-plugin-astro-organize-imports#readme",
   "bugs": {
-    "url": "https://github.com/ne-oki/prettier-plugin-astro-organize-imports/issues"
+    "url": "https://github.com/neokidev/prettier-plugin-astro-organize-imports/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ne-oki/prettier-plugin-astro-organize-imports.git"
+    "url": "https://github.com/neokidev/prettier-plugin-astro-organize-imports.git"
   },
   "license": "MIT",
   "author": "neoki",
