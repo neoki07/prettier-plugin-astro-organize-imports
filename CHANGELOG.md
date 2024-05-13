@@ -1,5 +1,11 @@
 # prettier-plugin-astro-organize-imports
 
+## 0.4.8
+
+### Patch Changes
+
+- [#152](https://github.com/neokidev/prettier-plugin-astro-organize-imports/pull/152) [`0938155`](https://github.com/neokidev/prettier-plugin-astro-organize-imports/commit/0938155c1f551abb71cb80d9439452b6ef514da1) Thanks [@neokidev](https://github.com/neokidev)! - Revert repo url
+
 ## 0.4.7
 
 ### Patch Changes
