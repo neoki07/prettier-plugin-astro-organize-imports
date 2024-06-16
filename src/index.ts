@@ -1,6 +1,5 @@
 import type {
   AstPath,
-  ChoiceSupportOption,
   Doc,
   Options,
   Parser,
@@ -21,6 +20,7 @@ import { loadPlugin } from './plugins'
 
 export interface PluginOptions {
   astroOrganizeImportsMode: OrganizeImportsMode
+  astroOrganizeImportsInScriptTags: boolean
 }
 
 declare module 'prettier' {
@@ -42,7 +42,10 @@ export const parsers: Record<string, Parser> = {
 
       const pipeline = [
         wrapExpressionWithComponent,
-        (code: string) => organizeImportsInScriptTags(code, options),
+        (code: string) =>
+          options.astroOrganizeImportsInScriptTags
+            ? organizeImportsInScriptTags(code, options)
+            : code,
         (code: string) => originalParser.preprocess?.(code, options) ?? code,
         (code: string) =>
           organizeImports(code, options.astroOrganizeImportsMode),
@@ -89,28 +92,33 @@ export const printers: Record<string, Printer> = {
   },
 }
 
-const modeOption: ChoiceSupportOption<OrganizeImportsMode> = {
-  type: 'choice',
-  default: OrganizeImportsMode.All,
-  category: 'OrganizeImports',
-  description: 'Organize imports mode',
-  choices: [
-    {
-      value: OrganizeImportsMode.All,
-      description:
-        'Removing unused imports, coalescing imports from the same module, and sorting imports',
-    },
-    {
-      value: OrganizeImportsMode.SortAndCombine,
-      description: 'Coalesce imports from the same module and sorting imports',
-    },
-    {
-      value: OrganizeImportsMode.RemoveUnused,
-      description: 'Removing unused imports',
-    },
-  ],
-}
-
 export const options: Record<keyof PluginOptions, SupportOption> = {
-  astroOrganizeImportsMode: modeOption,
+  astroOrganizeImportsMode: {
+    type: 'choice',
+    default: OrganizeImportsMode.All,
+    category: 'OrganizeImports',
+    description: 'Organize imports mode',
+    choices: [
+      {
+        value: OrganizeImportsMode.All,
+        description:
+          'Removing unused imports, coalescing imports from the same module, and sorting imports',
+      },
+      {
+        value: OrganizeImportsMode.SortAndCombine,
+        description:
+          'Coalesce imports from the same module and sorting imports',
+      },
+      {
+        value: OrganizeImportsMode.RemoveUnused,
+        description: 'Removing unused imports',
+      },
+    ],
+  },
+  astroOrganizeImportsInScriptTags: {
+    type: 'boolean',
+    default: true,
+    category: 'OrganizeImports',
+    description: 'Organize imports in script tags',
+  },
 }

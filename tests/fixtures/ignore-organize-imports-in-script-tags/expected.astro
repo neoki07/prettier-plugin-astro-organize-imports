@@ -1,0 +1,21 @@
+---
+import Bar from './Bar.astro'
+import Foo from './Foo.astro'
+---
+
+<Foo>
+  <Bar />
+</Foo>
+
+<script>
+  import { foo } from 'foo'
+  import { bar } from 'bar'
+  console.log(foo, bar)
+</script>
+
+<script>
+  // with comment
+  import { foo } from 'foo'
+  import { bar } from 'bar'
+  console.log(foo, bar)
+</script>
