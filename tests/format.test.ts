@@ -10,12 +10,16 @@ const tests = [
   {
     name: 'sort and combine',
     fixtureDir: 'sort-and-combine',
-    mode: OrganizeImportsMode.SortAndCombine,
+    options: {
+      astroOrganizeImportsMode: OrganizeImportsMode.SortAndCombine,
+    },
   },
   {
     name: 'remove unused',
     fixtureDir: 'remove-unused',
-    mode: OrganizeImportsMode.RemoveUnused,
+    options: {
+      astroOrganizeImportsMode: OrganizeImportsMode.RemoveUnused,
+    },
   },
   {
     name: 'function in JSX',
@@ -32,17 +36,21 @@ const tests = [
   {
     name: 'empty script tag',
     fixtureDir: 'empty-script-tag',
-    plugins: [],
   },
   {
     name: 'inside script tags',
     fixtureDir: 'script-tags',
-    plugins: [],
+  },
+  {
+    name: 'ignore organize imports inside script tags',
+    fixtureDir: 'ignore-organize-imports-in-script-tags',
+    options: {
+      astroOrganizeImportsInScriptTags: false,
+    },
   },
   {
     name: 'multi-byte characters',
     fixtureDir: 'multi-byte-characters',
-    plugins: [],
   },
   {
     name: 'organize-imports-ignore',
@@ -65,16 +73,11 @@ const tests = [
 ]
 
 describe('format', () => {
-  for (const { name, fixtureDir, mode, plugins } of tests) {
+  for (const { name, fixtureDir, options, plugins } of tests) {
     test(name, async () => {
       const { input, expected } = readFixture(fixtureDir)
-
-      const options = {
-        plugins,
-        astroOrganizeImportsMode: mode,
-      }
-
-      expect(await format(input, options)).toEqual(expected)
+      const actual = await format(input, { plugins, ...options })
+      expect(actual).toEqual(expected)
     })
   }
 })
