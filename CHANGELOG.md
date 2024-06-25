@@ -1,5 +1,11 @@
 # prettier-plugin-astro-organize-imports
 
+## 0.4.9
+
+### Patch Changes
+
+- [#159](https://github.com/neoki07/prettier-plugin-astro-organize-imports/pull/159) [`56f29ed`](https://github.com/neoki07/prettier-plugin-astro-organize-imports/commit/56f29ed880e680f86b4789193be59330bf1053b0) Thanks [@neoki07](https://github.com/neoki07)! - Add astroOrganizeImportsInScriptTags option
+
 ## 0.4.8
 
 ### Patch Changes
