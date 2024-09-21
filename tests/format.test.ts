@@ -53,6 +53,10 @@ const tests = [
     fixtureDir: 'multi-byte-characters',
   },
   {
+    name: 'conditional top-level element',
+    fixtureDir: 'conditional-top-level-element',
+  },
+  {
     name: 'organize-imports-ignore',
     fixtureDir: 'organize-imports-ignore',
   },
