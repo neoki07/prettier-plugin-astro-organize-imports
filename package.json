@@ -46,7 +46,7 @@
     "@changesets/cli": "^2.27.1",
     "@eslint/js": "^9.2.0",
     "@types/node": "^22.0.0",
-    "esbuild": "^0.23.0",
+    "esbuild": "^0.24.0",
     "eslint": "^9.2.0",
     "eslint-config-prettier": "^9.1.0",
     "lefthook": "^1.6.10",
@@ -55,7 +55,7 @@
     "prettier-plugin-organize-imports": "^4.0.0",
     "prettier-plugin-tailwindcss": "^0.6.2",
     "rimraf": "^6.0.1",
-    "typescript-eslint": "^7.8.0",
+    "typescript-eslint": "^8.6.0",
     "vitest": "^2.0.3"
   },
   "peerDependencies": {
