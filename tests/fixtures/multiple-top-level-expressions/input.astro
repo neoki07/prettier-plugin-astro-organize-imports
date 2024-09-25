@@ -1,0 +1,15 @@
+---
+const { foo } = Astro.props;
+---
+
+{
+  foo === 'bar' && (
+    <div>Foo is bar</div>
+  )
+}
+
+{
+  foo === 'baz' && (
+    <div>Foo is baz</div>
+  )
+}
