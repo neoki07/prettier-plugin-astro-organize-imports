@@ -9,8 +9,8 @@ async function loadIfExistsESM(name: string) {
       const mod = await import(name)
       return mod.default ?? mod
     }
-  } catch (e) {
-    /* empty */
+  } catch (error) {
+    console.error(`Couldn't load ${name}: ${error}`)
   }
 
   return {
@@ -50,8 +50,8 @@ export async function loadPlugin() {
   function maybeResolve(name: string) {
     try {
       return req(import.meta.url).resolve(name)
-    } catch (err) {
-      return null
+    } catch (error) {
+      console.error(`Couldn't resolve ${name}: ${error}`)
     }
   }
 
