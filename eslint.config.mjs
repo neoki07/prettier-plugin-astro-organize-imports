@@ -8,5 +8,10 @@ export default [
     eslint.configs.recommended,
     ...tseslint.configs.recommended,
     prettierConfig,
+    {
+      rules: {
+        '@typescript-eslint/no-empty-object-type': 'off',
+      },
+    },
   ),
 ]
