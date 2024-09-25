@@ -1,5 +1,4 @@
 import { parse } from '@astrojs/compiler/sync'
-import type { Node } from '@astrojs/compiler/types'
 import { substringByBytes } from './substring'
 
 const componentName = 'PrettierPluginAstroOrganizeImports'
@@ -9,31 +8,34 @@ export function wrapExpressionWithComponent(code: string) {
 
   let formattedCode = code
   if (Array.isArray(ast.children)) {
-    ast.children
-      .slice()
-      .reverse()
-      .forEach((node: Node) => {
-        if (node.type === 'expression') {
-          if (!(node.position && node.position.end)) {
-            console.error('Invalid node:', node)
-            return
-          }
+    const reversedChildNodes = ast.children.slice().reverse()
 
-          const wrappedExpressionCode =
-            `<${componentName}>` +
-            substringByBytes(
-              formattedCode,
-              node.position.start.offset,
-              node.position.end.offset,
-            ) +
-            `</${componentName}>`
-
-          formattedCode =
-            substringByBytes(formattedCode, 0, node.position.start.offset) +
-            wrappedExpressionCode +
-            substringByBytes(formattedCode, node.position.end.offset)
+    reversedChildNodes.forEach((node, index) => {
+      if (node.type === 'expression') {
+        if (!(node.position && node.position.end)) {
+          console.error('Invalid node:', node)
+          return
         }
-      })
+
+        const nextNode =
+          index - 1 >= 0 ? reversedChildNodes[index - 1] : undefined
+
+        const startOffset = node.position.start.offset
+        const endOffset = nextNode?.position?.start?.offset
+          ? nextNode.position.start.offset - 1
+          : node.position.end.offset
+
+        const wrappedExpressionCode =
+          `<${componentName}>` +
+          substringByBytes(formattedCode, startOffset, endOffset) +
+          `</${componentName}>`
+
+        formattedCode =
+          substringByBytes(formattedCode, 0, startOffset) +
+          wrappedExpressionCode +
+          substringByBytes(formattedCode, endOffset)
+      }
+    })
   }
 
   return formattedCode
