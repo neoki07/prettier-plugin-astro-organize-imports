@@ -1,5 +1,11 @@
 # prettier-plugin-astro-organize-imports
 
+## 0.4.10
+
+### Patch Changes
+
+- [#185](https://github.com/neoki07/prettier-plugin-astro-organize-imports/pull/185) [`1e13b71`](https://github.com/neoki07/prettier-plugin-astro-organize-imports/commit/1e13b714b9993d49ebcdd34f84eae6f3bd15f203) Thanks [@neoki07](https://github.com/neoki07)! - Format code for two top-level expressions correctly
+
 ## 0.4.9
 
 ### Patch Changes
