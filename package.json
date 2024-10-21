@@ -33,7 +33,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "prepare": "lefthook install",
-    "publish": "npm run clean && npm run build && changeset publish",
+    "release": "npm run clean && npm run build && changeset publish",
     "test": "npm run build && vitest --run",
     "type-check": "tsc --noEmit"
   },
