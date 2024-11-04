@@ -7,10 +7,10 @@ async function loadIfExistsESM(name: string) {
   try {
     if (req(import.meta.url).resolve(name)) {
       const mod = await import(name)
-      return mod.default ?? mod
+      return (mod.default ?? mod) as Plugin
     }
-  } catch (error) {
-    console.error(`Couldn't load ${name}: ${error}`)
+  } catch {
+    // Do nothing
   }
 
   return {
@@ -45,13 +45,13 @@ export async function loadPlugin() {
   const base = await loadBasePlugins()
   const compatible = await loadCompatiblePlugins()
 
-  const baseParser = { ...base.parsers.astro }
+  const baseParser = base.parsers?.astro ? { ...base.parsers.astro } : {}
 
   function maybeResolve(name: string) {
     try {
       return req(import.meta.url).resolve(name)
-    } catch (error) {
-      console.error(`Couldn't resolve ${name}: ${error}`)
+    } catch {
+      return null
     }
   }
 
