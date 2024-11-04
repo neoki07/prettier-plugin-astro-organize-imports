@@ -1,5 +1,11 @@
 # prettier-plugin-astro-organize-imports
 
+## 0.4.11
+
+### Patch Changes
+
+- [#195](https://github.com/neoki07/prettier-plugin-astro-organize-imports/pull/195) [`17b8dfa`](https://github.com/neoki07/prettier-plugin-astro-organize-imports/commit/17b8dfa62c9326565b83cc02c7d327613ce063e3) Thanks [@neoki07](https://github.com/neoki07)! - No error message when not using compatible plugins
+
 ## 0.4.10
 
 ### Patch Changes
